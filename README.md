@@ -8,7 +8,7 @@ Abrir o NGSpice:
   - No terminal dentro da pasta do arquivo a ser testado digite `ngspice`. 
   - Em seguida digite `nomeDoArquivo.cir`.
   - Após o arquivo ser carregado digite `run`.
-  - `print <nome da nó>` para saber os dados desse nó.
+  - `print <nome da nó>` para saber os dados desse nó. É possível dar o comando `print all` para printar todos os nós
   - `tran <tempo inicial> <tempo final>`para a analise transiente do ckt.
   - `plot <nome do nó> <nome do nó>` para printar um gráfico.
   
