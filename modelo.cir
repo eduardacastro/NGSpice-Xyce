@@ -1,0 +1,32 @@
+Nome_do_Ckt
+*
+* Detalher sobre o Ckt
+*
+* Copyright (c) 2023 - Eduarda de Castro Guterres
+* Distribuição sob a licença GNU GPLv2 
+*
+****************************************************************
+
+****************************************************************
+* Descrição do Ckt
+
+* Fontes de tensão começam o seu nome com 'v'
+*vSignal <nó positivo> <nó negativo/GND> <DC/AC (não é necessário para DC)> <valor da fonte> ;Default (Tensão DC)
+*R1      <nó positivo> <nó negativo>                                        <Valor da Resistencia>                                                    ;Default (Resistencia)
+vSignal vi  GND  1V
+R1      vi  vo   1k
+R2      vo  GND  2.2K
+
+****************************************************************
+* Parametros da Simulação
+
+.op  
+* OP: para sinais que variam no tempo ele considera 
+*               Capacitores como ckt aberto
+*               Indutores como curto ckt
+
+.tran
+* 
+* No terminal: tran <tempo inicial> <tempo final>
+
+
