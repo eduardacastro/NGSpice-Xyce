@@ -1,0 +1,33 @@
+* Simulação DC de um transistor NMOS
+* Incluindo o modelo do Transistor
+* .include 32_HP.mod
+.include 32_LP.mod
+
+* Definindo a temperatura de operação
+.TEMP 25
+
+* Declarando parametros que serão utilizados nas simulações
+.param supply = 0.9
+
+* Declaração das fontes
+vdreno drain 0 supply
+vporta gate 0 supply
+vfonte source 0 0
+vsubstrato bulk 0 0
+
+
+* Declaração do transistor NMOS
+Mprimeiro drain gate source bulk NMOS L=32n W=100n
+
+* Declarando o tipo de simulação 
+* Simulação para obtenção da curva Ids x Vds
+* .DC <fonte_que_sofrerá_variação> <valor_inicial_da_variação> <valor_final_da_variação> <passo_da_variação>
+.dc vporta 0 1 0.01
+
+* Simulação para obtenção da curva Ids x Vds
+* .dc vporta 0 1 0.01
+
+.measure DC ioff find i(vdreno) AT=0
+.measure DC ion FIND i(vdreno) AT=1
+
+.end
