@@ -6,7 +6,7 @@ Scripts de circuitos feitos para simulação no NGSpice
 
 ### Abrir o NGSpice: 
   - No terminal dentro da pasta do arquivo a ser testado digite `ngspice`. 
-  - Em seguida digite `nomeDoArquivo.cir`.
+  - Em seguida digite `source nomeDoArquivo.cir`.
   - Após o arquivo ser carregado digite `run`.
   - `print <nome da nó>` para saber os dados desse nó. É possível dar o comando `print all` para printar todos os nós
   - `tran <tempo inicial> <tempo final>`para a analise transiente do ckt.
