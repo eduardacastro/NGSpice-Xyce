@@ -1,7 +1,7 @@
 * Simulação de um inversor
 * Incluindo o modelo do Transistor
 * .include 32_HP.mod
-.include 32_LP.mod
+.include 32LP.mod
 
 * Definindo a temperatura de operação
 .TEMP 25
@@ -21,11 +21,11 @@ vpmos_a out dpmos_a 0
 vnmos_a out dnmos_a 0
 
 * Declaração do inversor
-MP_hp vdd in outhp vdd PMOS_hp L=32n W=200n
-MN_hp 0   in outhp 0   NMOS_hp L=32n W=100n
+MP vdd in out vdd PMOS L=32n W=200n
+MN 0   in out 0   NMOS L=32n W=100n
 
-MP_lp vdd in dpmos_b vdd PMOS_1p L=32n W=200n
-MN_lp 0   in dnmos_b 0   NMOS_1p L=32n W=100n
+MP vdd in dpmos_b vdd PMOS L=32n W=200n
+MN 0   in dnmos_b 0   NMOS L=32n W=100n
 
 * Pb vdd in dpmos_b vdd PMOS_1p L=32n W=200n
 * MNb 0   in dnmos_b 0   NMOS_1p L=32n W=100n

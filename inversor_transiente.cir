@@ -8,7 +8,7 @@ Simulacao_transiente_de_um_Inversor
 ****************************************************************
 *Incluindo os modelos de transistores
 .include 32HP.mod
-*.include 32LP.mod
+.include 32LP.mod
 
 * Def. da Temperatura
 .TEMP 25
@@ -22,8 +22,8 @@ vSignal vdd 0 0.9
 vinput in 0 PULSE ( 0 0.9 1n 1p 1p 1n 2n) 
 
 * Inversor
-mp vdd in out vdd pmos L=32n W=100n
-MN 0 in out 0 nmos L=32n W=100n
+mp vdd in out vdd pmos_32lp L=32n W=100n
+MN 0 in out 0 nmos_32lp L=32n W=100n
 
 * Capacitancia de saida para emular uma carga
 Cload out 0 5f

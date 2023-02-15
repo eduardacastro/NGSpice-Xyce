@@ -1,7 +1,7 @@
 * PTM Low Power 32nm Metal Gate / High-K / Strained-Si
 * nominal Vdd = 1.0V
 
-.model  nmos  nmos  level = 54
+.model  nmos_32lp  nmos  level = 54
 
 
 +version = 4.0             binunit = 1               paramchk= 1               mobmod  = 0             
@@ -70,7 +70,7 @@
 +rbps    = 15              rbdb    = 15              rbsb    = 15              ngcon   = 1             
 
 
-.model  pmos  pmos  level = 54
+.model  pmos_32lp  pmos  level = 54
 
 
 +version = 4.0             binunit = 1               paramchk= 1               mobmod  = 0             
