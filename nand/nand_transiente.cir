@@ -19,15 +19,15 @@ Simulacao_transiente_de_uma_NAND
 
 * Descricao das fontes
 vsignal vdd 0 0.9
-vinA e1 0 PULSE (0 0.9 1n 1p 1p 1n 2n) 
-vinB e2 0 PULSE (0 0.9 1n 1p 1p 1n 2n) 
+vinA in1 0 PULSE (0 0.9 1n 1p 1p 1n 2n) 
+vinB in2 0 PULSE (0 0.9 1n 1p 1p 1n 2n) 
 
 
-MP1 vdd e1 out vdd pmos_32hp L=32n W=100n
-MP2 vdd e2 out vdd pmos_32hp L=32n W=100n
+MP1 vdd in1 out vdd pmos_32hp L=32n W=100n
+MP2 vdd in2 out vdd pmos_32hp L=32n W=100n
 
-MN1 out e1 mid vdd nmos_32hp L=32n W=100n
-MN2 mid e2 gnd vdd nmos_32hp L=32n W=100n
+MN1 out in1 mid vdd nmos_32hp L=32n W=100n
+MN2 mid in2 gnd vdd nmos_32hp L=32n W=100n
 * Capacitancia de saida para emular uma carga
 Cload out 0 5f
 
