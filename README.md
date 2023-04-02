@@ -41,4 +41,9 @@ ex:
     .save all @R2[p] @R3[p] @R1[p]
  ```
 
+Transformar o fundo preto em branco e aumentar o tamanho da linha:
 
+```
+    set color0=white
+    set xbrushwidth=3
+```
