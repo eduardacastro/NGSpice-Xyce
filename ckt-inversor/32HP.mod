@@ -1,7 +1,7 @@
 * PTM High Performance 32nm Metal Gate / High-K / Strained-Si
 * nominal Vdd = 0.9V
 
-.model  nmos_32hp  nmos  level = 54
+.model  NMOS_32HP  nmos  level = 54
 
 +version = 4.0             binunit = 1               paramchk= 1               mobmod  = 0             
 +capmod  = 2               igcmod  = 1               igbmod  = 1               geomod  = 1             
@@ -70,7 +70,7 @@
 +rbps    = 15              rbdb    = 15              rbsb    = 15              ngcon   = 1             
 
 
-.model  pmos_32hp  pmos  level = 54
+.model  PMOS_32HP  pmos  level = 54
 
 +version = 4.0             binunit = 1               paramchk= 1               mobmod  = 0             
 +capmod  = 2               igcmod  = 1               igbmod  = 1               geomod  = 1             
