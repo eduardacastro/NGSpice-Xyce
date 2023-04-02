@@ -14,6 +14,9 @@
 valimentacao vdd 0 supply
 vinput in 0 0.45
 vout out 0 0
+va 2 0 PULSE (0 1.8 0 0.1n 0.1n 10n 20n)
+vb 2 0 PULSE (0 1.8 0 0.1n 0.1n 10n 20n)
+
 
 MP1 vdd in1 out_32hp vdd pmos_32hp L=32n W=100n
 MP2 vdd in2 out_32hp vdd pmos_32hp L=32n W=100n
