@@ -47,3 +47,17 @@ Transformar o fundo preto em branco e aumentar o tamanho da linha:
     set color0=white
     set xbrushwidth=3
 ```
+
+
+
+## Testes
+
+1. Vo x Vi
+```
+    plot v(saida) v(entrada)
+```
+2. Frequencia
+```
+    fft v(saida)
+    plot mag(v(saida))
+```
