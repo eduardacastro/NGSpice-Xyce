@@ -38,7 +38,7 @@ MN2 5 4 0 0 NMOS_32HP L=32n W=100n
 run
 
 * saida lógica
-
+spec 0 1K 100 3
 
 .endc
 .end
