@@ -19,7 +19,7 @@ Simulacao_transiente_de_um_Inversor
 
 * Descricao das fontes
 valimentacao vdd 0 0.9
-vinput in 0 PULSE (0 0.9 1n 1p 1p 1n 2n) 
+vinput in 0 PULSE (0 0.9 1n 50p 50p 1n 2n) 
 
 * Inversor
 MP vdd in out vdd PMOS_32hp L=32n W=100n
@@ -34,7 +34,7 @@ Cload out 0 5f
 .tran 0.1p 3n
 
 *Comandos measure para a realizacao de medidas
-*.MEAS TRAN integral_vdd INTEG i(valimentacao) from=1.9n to=2.2n
+.MEAS TRAN integral_vdd INTEG i(valimentacao) from=1.9n to=2.2n
 .MEAS TRAN integral_in1 INTEG i(vinput) from=0.9n to=1.1n
 .MEAS TRAN integral_in2 INTEG i(vinput) from=1.9n to=2.1n
 
