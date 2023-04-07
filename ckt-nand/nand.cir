@@ -5,20 +5,20 @@
 
 .include 32HP.mod
 * Declaração das fontes
-vdd 1 0 dc 1.8
+vdd vdd 0 dc 1.8
 
-vin1 2 0 PULSE (0 1.8 0 0.1n 0.1n 5n 10n)
-vin2 4 0 PULSE (0 1.8 0 0.1n 0.1n 10n 20n)
+vin1 in1 0 PULSE (0 1.8 0 0.1n 0.1n 5n 10n)
+vin2 in2 0 PULSE (0 1.8 0 0.1n 0.1n 10n 20n)
 
 * Circuito da porta NAND
 *<drain> <gate> <source> <bulk>
 ** portas em paralelo
 *MP1 midsaida in1 vdd vdd PMOS_32HP L=32n W=100n
 *MP2 midsaida in2 vdd vdd PMOS_32HP L=32n W=100n
-MP1 3 2 1 1 PMOS_32HP L=32n W=100n
-MP2 3 4 1 1 PMOS_32HP L=32n W=100n
-MN1 3 2 5 0 NMOS_32HP L=32n W=100n
-MN2 5 4 0 0 NMOS_32HP L=32n W=100n
+MP1 out in1 vdd vdd PMOS_32HP L=32n W=100n
+MP2 out in2 vdd vdd PMOS_32HP L=32n W=100n
+MN1 out in1 mid 0 NMOS_32HP L=32n W=100n
+MN2 mid in2 0 0 NMOS_32HP L=32n W=100n
 
 
 ** portas em série
