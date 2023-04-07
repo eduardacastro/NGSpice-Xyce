@@ -1,48 +1,54 @@
-Simulacao_transiente_de_uma_NAND
-*
-* Detalher sobre o Ckt
-*
-* Copyright (c) 2023 - Eduarda de Castro Guterres
-* Distribuicao sob a licenca GNU GPLv2 
-*
-****************************************************************
-*Incluindo os modelos de transistores
-.include 32HP.mod
-.include 32LP.mod
-
-* Def. da Temperatura
+* Definindo a temperatura de operação
 .TEMP 25
 
-****************************************************************
-*Parametro que sera utilizado na simulacao
+* Declarando parametros que serão utilizados nas simulações
+
+.include 32HP.mod
+
+* Declarando parametros que serão utilizados nas simulações
 .param supply = 0.9
 
-* Descricao das fontes
-vsignal vdd 0 0.9
-vinA in1 0 PULSE (0 0.9 1n 1p 1p 1n 2n) 
-vinB in2 0 PULSE (0 0.9 1n 1p 1p 1n 2n) 
+* Declaração das fontes
+vdd vdd 0 dc 1.8
+vin1 in1 0 PULSE (0 1.8 0 0.1n 0.1n 5n 10n)
+vin2 in2 0 PULSE (0 1.8 0 0.1n 0.1n 10n 20n)
+
+vpmos dpmos out 0
+vnmos out dnmos 0
+
+vpmos_a out dpmos_a 0
+vnmos_a out dnmos_a 0
 
 
-MP1 vdd in1 out vdd pmos_32hp L=32n W=100n
-MP2 vdd in2 out vdd pmos_32hp L=32n W=100n
+* NAND 
 
-MN1 out in1 mid vdd nmos_32hp L=32n W=100n
-MN2 mid in2 gnd vdd nmos_32hp L=32n W=100n
-* Capacitancia de saida para emular uma carga
-Cload out 0 5f
+MP1 out in1 vpmos vdd PMOS_32HP L=32n W=100n
+MP2 out in2 vpmos vdd PMOS_32HP L=32n W=100n
+MN1 out in1 dnmos 0 NMOS_32HP L=32n W=100n
+MN2 dnmos in2 0 0 NMOS_32HP L=32n W=100n
 
-****************************************************************
-* Parametros da Simulacao
 
-.tran 0.1p 3n
+* Declarando o tipo de simulação 
 
-*Comandos measure para a realizacao de medidas
-.MEAS TRAN integral_vdd INTEG i(vsignal) from=0.9n to=1.1n
-.MEAS TRAN integral_in INTEG i(vinA) from=0.9n to=1.1n
+.tran 0.1n 50n
+*******************************************************************
+* parametros de simulação
 
-*.MEAS TRAN tp_lh TRIG v(in) val=0.5 FALL=1 TARG v(out) val=0.5 RISE=1
-*.MEAS TRAN tp_hl TRIG v(in) val=0.5 RISE=1 TARG v(out) val=0.5 FALL=1
-*.MEAS TRAN tp_fall TRIG v(out) val=0.75 FALL=1 TARG v(out) val=0.25 FALL=1
-*.MEAS TRAN tp_rise TRIG v(out) val=0.25 RISE=1 TARG v(out) val=0.75 RISE=1
+.control
 
+run
+
+* saida lógica
+*spec 0 1K 100 3
+
+    set color0=white
+    set xbrushwidth=3
+
+    plot v(in1)
+    plot v(in2)
+    plot v(in1) v(in2)
+    plot v(out)
+    plot i(vnmos) i(vpmos)
+
+.endc
 .end

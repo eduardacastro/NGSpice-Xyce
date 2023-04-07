@@ -3,33 +3,26 @@
 
 * Declarando parametros que serão utilizados nas simulações
 
+
 .include 32HP.mod
+
 * Declaração das fontes
-vdd vdd 0 dc 1.8
-
-vin1 in1 0 PULSE (0 1.8 0 0.1n 0.1n 5n 10n)
-vin2 in2 0 PULSE (0 1.8 0 0.1n 0.1n 10n 20n)
-
-* Circuito da porta NAND
-*<drain> <gate> <source> <bulk>
-** portas em paralelo
-*MP1 midsaida in1 vdd vdd PMOS_32HP L=32n W=100n
-*MP2 midsaida in2 vdd vdd PMOS_32HP L=32n W=100n
-MP1 out in1 vdd vdd PMOS_32HP L=32n W=100n
-MP2 out in2 vdd vdd PMOS_32HP L=32n W=100n
-MN1 out in1 mid 0 NMOS_32HP L=32n W=100n
-MN2 mid in2 0 0 NMOS_32HP L=32n W=100n
+vdd vdd 0 0v
+vin in 0 0v
+vout out 0 0 
 
 
-** portas em série
-*MN1 midsaida in1 mid mid NMOS_32HP L=32n W=100n
-*MN2 mid in2 out out NMOS_32HP L=32n W=100n
+* NAND 
+
+MP1 out_hp in vpmos vdd PMOS_32HP L=32n W=100n
+MP2 out_hp in vpmos vdd PMOS_32HP L=32n W=100n
+MN1 out_hp in dnmos 0 NMOS_32HP L=32n W=100n
+MN2 dnmos in 0 0 NMOS_32HP L=32n W=100n
 
 
 * Declarando o tipo de simulação 
-*.dc vin1 0 1.8 0.01
-*.dc vin2 0 1.8 0.01 vin1 0 1.8 0.01
-.tran 0.1n 50n
+.dc vin 0 2.5 0.01 vdd 0.5 2.5 0.5
+
 *******************************************************************
 * parametros de simulação
 
@@ -38,7 +31,12 @@ MN2 mid in2 0 0 NMOS_32HP L=32n W=100n
 run
 
 * saida lógica
-spec 0 1K 100 3
+*spec 0 1K 100 3
 
+    set color0=white
+    set xbrushwidth=3
+
+    plot v(out_hp) vs v(in)
+    
 .endc
 .end

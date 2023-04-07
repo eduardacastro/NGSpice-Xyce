@@ -31,16 +31,18 @@ Cload out 0 5f
 ****************************************************************
 * Parametros da Simulacao
 
-.tran 0.1p 3n
+tran 0.1p 3n
 
 *Comandos measure para a realizacao de medidas
-.MEAS TRAN integral_vdd INTEG i(valimentacao) from=1.9n to=2.2n
-.MEAS TRAN integral_in1 INTEG i(vinput) from=0.9n to=1.1n
-.MEAS TRAN integral_in2 INTEG i(vinput) from=1.9n to=2.1n
+*.MEAS TRAN integral_vdd INTEG i(valimentacao) from=1.9n to=2.2n
+*.MEAS TRAN integral_in1 INTEG i(vinput) from=0.9n to=1.1n
+*.MEAS TRAN integral_in2 INTEG i(vinput) from=1.9n to=2.1n
 
 *.MEAS TRAN tp_lh TRIG v(in) val=0.5 FALL=1 TARG v(out) val=0.5 RISE=1
 *.MEAS TRAN tp_hl TRIG v(in) val=0.5 RISE=1 TARG v(out) val=0.5 FALL=1
 *.MEAS TRAN tp_fall TRIG v(out) val=0.75 FALL=1 TARG v(out) val=0.25 FALL=1
 *.MEAS TRAN tp_rise TRIG v(out) val=0.25 RISE=1 TARG v(out) val=0.75 RISE=1
+
+
 
 .end
