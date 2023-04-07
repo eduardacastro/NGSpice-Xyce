@@ -13,11 +13,8 @@ vdd vdd 0 dc 1.8
 vin1 in1 0 PULSE (0 1.8 0 0.1n 0.1n 5n 10n)
 vin2 in2 0 PULSE (0 1.8 0 0.1n 0.1n 10n 20n)
 
-vpmos dpmos out 0
-vnmos out dnmos 0
 
-vpmos_a out dpmos_a 0
-vnmos_a out dnmos_a 0
+
 
 
 * NAND 
@@ -47,7 +44,6 @@ run
     plot v(in1)
     plot v(in2)
     plot v(in1) v(in2)
-    plot v(out)
     plot i(vnmos) i(vpmos)
 
 .endc
