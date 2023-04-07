@@ -13,9 +13,10 @@ vout out 0 0
 
 
 * NAND 
-
-MP1 out_hp in vpmos vdd PMOS_32HP L=32n W=100n
-MP2 out_hp in vpmos vdd PMOS_32HP L=32n W=100n
+** Paralelo
+MP1 out_hp in vdd vdd PMOS_32HP L=32n W=100n
+MP2 out_hp in vdd vdd PMOS_32HP L=32n W=100n
+** Serie
 MN1 out_hp in dnmos 0 NMOS_32HP L=32n W=100n
 MN2 dnmos in 0 0 NMOS_32HP L=32n W=100n
 
