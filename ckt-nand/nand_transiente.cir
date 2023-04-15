@@ -27,9 +27,8 @@ MN2 dnmos in2 0 0 NMOS_32HP L=32n W=100n
 
 * Declarando o tipo de simulação 
 
-.tran 0.1n 50n
-*******************************************************************
-* parametros de simulação
+* Declarando o tipo de simulação 
+.dc vinput 0 0.9 0.01
 
 .control
 
