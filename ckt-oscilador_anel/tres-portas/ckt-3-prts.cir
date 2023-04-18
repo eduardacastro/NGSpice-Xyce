@@ -10,29 +10,45 @@
 .param supply = 0.9
 
 * Declaração das fontes
-venable enable 0 PULSE (0 1.8 0 0.1n 0.1n 5n 10n)
-
+vdd source 0 dc 0.9
+venable enable 0 PWL(0 0.9) r=-1
+*vclock 7 5 PWL(0 1 20ns 0) r=-1
 
 * NAND 
-
-MP1 out_nand enable vpmos vdd PMOS_32HP L=32n W=100n
-MP2 out_nand out_oscilador vpmos vdd PMOS_32HP L=32n W=100n
-MN1 out_nand enable dnmos 0 NMOS_32HP L=32n W=100n
-MN2 dnmos out_oscilador 0 0 NMOS_32HP L=32n W=100n
+MP1 out_nand enable        source   source PMOS_32HP L=32n W=100n
+MP2 out_nand out_oscilador source   source PMOS_32HP L=32n W=100n
+MN1 out_nand enable        dnmos    0      NMOS_32HP L=32n W=100n
+MN2 dnmos    out_oscilador 0        0      NMOS_32HP L=32n W=100n  
 
 
 * Declaração do inversor 1
-MP_hp1 vdd out_nand out_inv1 vdd PMOS_32HP L=32n W=100n
-MN_hp1 0   out_nand out_inv1 0   NMOS_32HP L=32n W=100n
+MP_hp1 out_inv1 out_nand source source PMOS_32HP L=32n W=100n
+MN_hp1 out_inv1 out_nand 0      0      NMOS_32HP L=32n W=100n
 
 * Declaração do inversor 2
-MP_hp2 vdd out_inv1 out_oscilador vdd PMOS_32HP L=32n W=100n
-MN_hp2 0   out_inv1 out_oscilador 0   NMOS_32HP L=32n W=100n
+MP_hp2 out_oscilador out_inv1 source source PMOS_32HP L=32n W=100n
+MN_hp2 out_oscilador out_inv1 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 3
+*MP_hp3 out_inv3 out_inv2 source source PMOS_32HP L=32n W=100n
+*MN_hp3 out_inv3 out_inv2 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 4
+*MP_hp4 out_inv4 out_inv3 source source PMOS_32HP L=32n W=100n
+*MN_hp4 out_inv4 out_inv3 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 5
+*MP_hp5 out_inv5 out_inv4 source source PMOS_32HP L=32n W=100n
+*MN_hp5 out_inv5 out_inv4 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 6
+*MP_hp6 out_oscilador out_inv5 source source PMOS_32HP L=32n W=100n
+*MN_hp6 out_oscilador out_inv5 0      0      NMOS_32HP L=32n W=100n
 
 
 * Declarando o tipo de simulação 
 
-.tran 0.1n 50n
+.tran 0.005n 1n
 *******************************************************************
 
 .control

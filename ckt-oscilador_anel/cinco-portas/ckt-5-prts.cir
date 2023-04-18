@@ -10,13 +10,12 @@
 .param supply = 0.9
 
 * Declaração das fontes
-venable enable 0 PULSE (0 1.8 0 0.1n 0.1n 5n 10n)
+venable enable 0 0.9 PWL(1NS 0 2NS 0.9) r=-1
 
 
 * NAND 
-
-MP1 out_nand enable vpmos vdd PMOS_32HP L=32n W=100n
-MP2 out_nand out_oscilador vpmos vdd PMOS_32HP L=32n W=100n
+MP1 out_nand enable vdd vdd PMOS_32HP L=32n W=100n
+MP2 out_nand out_oscilador vdd vdd PMOS_32HP L=32n W=100n
 MN1 out_nand enable dnmos 0 NMOS_32HP L=32n W=100n
 MN2 dnmos out_oscilador 0 0 NMOS_32HP L=32n W=100n
 
