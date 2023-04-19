@@ -26,8 +26,8 @@ MP_hp1 out_inv1 out_nand source source PMOS_32HP L=32n W=100n
 MN_hp1 out_inv1 out_nand 0      0      NMOS_32HP L=32n W=100n
 
 * Declaração do inversor 2
-MP_hp2 out_oscilador out_inv1 source source PMOS_32HP L=32n W=100n
-MN_hp2 out_oscilador out_inv1 0      0      NMOS_32HP L=32n W=100n
+MP_hp2 out_oscilador out_oscilador source source PMOS_32HP L=32n W=100n
+MN_hp2 out_oscilador out_oscilador 0      0      NMOS_32HP L=32n W=100n
 
 * Declaração do inversor 3
 *MP_hp3 out_inv3 out_inv2 source source PMOS_32HP L=32n W=100n
