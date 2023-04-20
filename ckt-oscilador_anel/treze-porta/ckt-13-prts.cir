@@ -34,16 +34,36 @@ MP_hp3 out_inv3 out_inv2 source source PMOS_32HP L=32n W=100n
 MN_hp3 out_inv3 out_inv2 0      0      NMOS_32HP L=32n W=100n
 
 * Declaração do inversor 4
-MP_hp4 out_oscilador out_inv3 source source PMOS_32HP L=32n W=100n
-MN_hp4 out_oscilador out_inv3 0      0      NMOS_32HP L=32n W=100n
+MP_hp4 out_inv4 out_inv3 source source PMOS_32HP L=32n W=100n
+MN_hp4 out_inv4 out_inv3 0      0      NMOS_32HP L=32n W=100n
 
 * Declaração do inversor 5
-*MP_hp5 out_inv5 out_inv4 source source PMOS_32HP L=32n W=100n
-*MN_hp5 out_inv5 out_inv4 0      0      NMOS_32HP L=32n W=100n
+MP_hp5 out_inv5 out_inv4 source source PMOS_32HP L=32n W=100n
+MN_hp5 out_inv5 out_inv4 0      0      NMOS_32HP L=32n W=100n
 
 * Declaração do inversor 6
-*MP_hp6 out_oscilador out_inv5 source source PMOS_32HP L=32n W=100n
-*MN_hp6 out_oscilador out_inv5 0      0      NMOS_32HP L=32n W=100n
+MP_hp6 out_inv6 out_inv5 source source PMOS_32HP L=32n W=100n
+MN_hp6 out_inv6 out_inv5 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 7
+MP_hp7 out_inv7 out_inv6 source source PMOS_32HP L=32n W=100n
+MN_hp7 out_inv7 out_inv6 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 8
+MP_hp8 out_inv8 out_inv7 source source PMOS_32HP L=32n W=100n
+MN_hp8 out_inv8 out_inv7 0      0      NMOS_32HP L=32n W=100n
+* Declaração do inversor 9
+MP_hp9 out_inv9 out_inv8 source source PMOS_32HP L=32n W=100n
+MN_hp9 out_inv9 out_inv8 0      0      NMOS_32HP L=32n W=100n
+* Declaração do inversor 10
+MP_hp10 out_inv10 out_inv9 source source PMOS_32HP L=32n W=100n
+MN_hp10 out_inv10 out_inv9 0      0      NMOS_32HP L=32n W=100n
+* Declaração do inversor 11
+MP_hp11 out_inv11 out_inv10 source source PMOS_32HP L=32n W=100n
+MN_hp11 out_inv11 out_inv10 0      0      NMOS_32HP L=32n W=100n
+* Declaração do inversor 12
+MP_hp12 out_oscilador out_inv11 source source PMOS_32HP L=32n W=100n
+MN_hp12 out_oscilador out_inv11 0      0      NMOS_32HP L=32n W=100n
 
 
 * Declarando o tipo de simulação 
