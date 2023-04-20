@@ -11,7 +11,7 @@
 
 * Declaração das fontes
 vdd source 0 dc 0.9
-venable enable 0 PWL(0 0.9) r=-1
+venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
 *vclock 7 5 PWL(0 1 20ns 0) r=-1
 
 * NAND 
@@ -22,8 +22,8 @@ MN2 dnmos    out_oscilador 0        0      NMOS_32HP L=32n W=100n
 
 
 * Declaração do inversor 1
-MP_hp1 out_inv1 out_nand source source PMOS_32HP L=32n W=100n
-MN_hp1 out_inv1 out_nand 0      0      NMOS_32HP L=32n W=100n
+MP_hp1 out_inv1 out_nand source source PMOS_32HP L=32n W=200n
+MN_hp1 out_inv1 out_nand 0      0      NMOS_32HP L=32n W=200n
 
 * Declaração do inversor 2
 MP_hp2 out_oscilador out_inv1 source source PMOS_32HP L=32n W=100n
@@ -33,7 +33,7 @@ MN_hp2 out_oscilador out_inv1 0      0      NMOS_32HP L=32n W=100n
 
 * Declarando o tipo de simulação 
 
-.tran 0.005n 1n
+.tran 1p 0.3n
 *******************************************************************
 
 .control

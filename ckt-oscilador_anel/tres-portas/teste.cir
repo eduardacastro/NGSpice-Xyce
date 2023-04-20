@@ -9,9 +9,17 @@
 * Declarando parametros que serão utilizados nas simulações
 .param supply = 0.9
 
+.SUBCKT inv_32hp in out vdd gnd
+vagingp in inp dc 0.1
+MP_hp1 vdd inp out vdd     PMOS_32HP L=32n W=100n
+MN_hp1 gnd in out gnd     NMOS_32HP L=32n W=100n
+.ends inv_32hp
+
+
 * Declaração das fontes
 vdd source 0 dc 0.9
 venable enable 0 PWL(0 0.9) r=-1
+
 *vclock 7 5 PWL(0 1 20ns 0) r=-1
 
 * NAND 
@@ -21,13 +29,9 @@ MN1 out_nand enable        dnmos    0      NMOS_32HP L=32n W=100n
 MN2 dnmos    out_oscilador 0        0      NMOS_32HP L=32n W=100n  
 
 
-.SUBCKT inv_32hp in out vdd gnd
-MP_hp1 vdd in out vdd     PMOS_32HP L=32n W=100n
-MN_hp1 gnd in out gnd     NMOS_32HP L=32n W=100n
-.ends inv_32hp
 
 * Xinv32hp in out vdd gnd inv_32hp
-Xinv1 out_oscilador out_inv1 source 0 inv_32hp
+Xinv1 out_nand out_inv1 source 0 inv_32hp
 X2inv2 out_inv1 out_oscilador source 0 inv_32hp
 
 

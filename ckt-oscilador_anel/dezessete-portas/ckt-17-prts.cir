@@ -11,7 +11,7 @@
 
 * Declaração das fontes
 vdd source 0 dc 0.9
-venable enable 0 PWL(0 0.9) r=-1
+venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
 *vclock 7 5 PWL(0 1 20ns 0) r=-1
 
 * NAND 
