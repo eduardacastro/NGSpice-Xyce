@@ -37,14 +37,6 @@ MN_hp3 out_inv3 out_inv2 0      0      NMOS_32HP L=32n W=100n
 MP_hp4 out_oscilador out_inv3 source source PMOS_32HP L=32n W=150n
 MN_hp4 out_oscilador out_inv3 0      0      NMOS_32HP L=32n W=100n
 
-* Declaração do inversor 5
-*MP_hp5 out_inv5 out_inv4 source source PMOS_32HP L=32n W=100n
-*MN_hp5 out_inv5 out_inv4 0      0      NMOS_32HP L=32n W=100n
-
-* Declaração do inversor 6
-*MP_hp6 out_oscilador out_inv5 source source PMOS_32HP L=32n W=100n
-*MN_hp6 out_oscilador out_inv5 0      0      NMOS_32HP L=32n W=100n
-
 
 * Declarando o tipo de simulação 
 
