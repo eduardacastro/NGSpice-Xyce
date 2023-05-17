@@ -110,13 +110,13 @@ run
     set color0=white
     set xbrushwidth=3
 
-    plot v(out_inv2) 
-    plot v(out_inv2) v(enable)
-    MEAS TRAN periodo TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 RISE=3
-    MEAS TRAN tempo_alto TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 FALL=3
-    MEAS TRAN tempo_baixo TRIG v(out_inv2) VAL=0.45 FALL=3 TARG v(out_inv2) VAL=0.45 RISE=3
-    MEAS TRAN trise TRIG v(out_inv2) VAL=0.18 RISE=2 TARG v(out_inv2) VAL=0.72 RISE=2
-    MEAS TRAN tfall TRIG v(out_inv2) VAL=0.72 FALL=2 TARG v(out_inv2) VAL=0.18 FALL=2
+    plot v(out_inv8) 
+    plot v(out_inv8) v(enable)
+    MEAS TRAN periodo TRIG v(out_oscilador) VAL=0.45 RISE=2 TARG v(out_oscilador) VAL=0.45 RISE=3
+    MEAS TRAN tempo_alto TRIG v(out_oscilador) VAL=0.45 RISE=2 TARG v(out_oscilador) VAL=0.45 FALL=3
+    MEAS TRAN tempo_baixo TRIG v(out_oscilador) VAL=0.45 FALL=3 TARG v(out_oscilador) VAL=0.45 RISE=3
+    MEAS TRAN trise TRIG v(out_oscilador) VAL=0.18 RISE=2 TARG v(out_oscilador) VAL=0.72 RISE=2
+    MEAS TRAN tfall TRIG v(out_oscilador) VAL=0.72 FALL=2 TARG v(out_oscilador) VAL=0.18 FALL=2
 
     
 .endc

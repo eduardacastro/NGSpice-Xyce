@@ -15,9 +15,8 @@ venable enable 0 PWL(0 0.9) r=-1
 *vclock 7 5 PWL(0 1 20ns 0) r=-1
 
 .SUBCKT inv_32hp in out vdd gnd
-vagingp in inp dc 0.1
-MP_hp1 vdd inp out vdd     PMOS_32HP L=32n Wp
-MN_hp1 gnd in out gnd     NMOS_32HP L=32n Wn
+MP_hp1 vdd in out vdd     PMOS_32HP L=32n W=Wp
+MN_hp1 gnd in out gnd     NMOS_32HP L=32n W=Wn
 .ends inv_32hp
 
 

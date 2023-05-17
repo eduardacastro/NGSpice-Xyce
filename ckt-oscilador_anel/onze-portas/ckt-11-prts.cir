@@ -9,17 +9,16 @@
 * Declarando parametros que serão utilizados nas simulações
 .param Wp = 100n
 .param Wn = 150n
-
-.SUBCKT inv_32hp in out vdd gnd
-vagingp in inp dc 0.1
-MP_hp1 vdd inp out vdd     PMOS_32HP L=32n Wp
-MN_hp1 gnd in out gnd     NMOS_32HP L=32n Wn
-.ends inv_32hp
-
 * Declaração das fontes
 vdd source 0 dc 0.9
 venable enable 0 PWL(0 0.9) r=-1
 *vclock 7 5 PWL(0 1 20ns 0) r=-1
+
+.SUBCKT inv_32hp in out vdd gnd
+MP_hp1 vdd in out vdd     PMOS_32HP L=32n W=Wp
+MN_hp1 gnd in out gnd     NMOS_32HP L=32n W=Wn
+.ends inv_32hp
+
 
 * NAND 
 MP1 out_nand enable        source   source PMOS_32HP L=32n W=100n
@@ -27,7 +26,7 @@ MP2 out_nand out_oscilador source   source PMOS_32HP L=32n W=100n
 MN1 out_nand enable        dnmos    0      NMOS_32HP L=32n W=100n
 MN2 dnmos    out_oscilador 0        0      NMOS_32HP L=32n W=100n  
 
-
+* Xinv32hp in out vdd gnd inv_32hp
 Xinv1 out_nand out_inv1 source 0 inv_32hp
 Xinv2 out_inv1 out_inv2 source 0 inv_32hp
 Xinv3 out_inv2 out_inv3 source 0 inv_32hp
@@ -39,7 +38,6 @@ Xinv8 out_inv7 out_inv8 source 0 inv_32hp
 Xinv9 out_inv8 out_inv9 source 0 inv_32hp
 Xinv10 out_inv9 out_oscilador source 0 inv_32hp
 
-
 * Declarando o tipo de simulação 
 
 .tran 0.005n 1n
@@ -48,6 +46,10 @@ Xinv10 out_inv9 out_oscilador source 0 inv_32hp
 .control
 
 run
+
+* saida lógica
+*spec 0 1K 100 3
+
     set color0=white
     set xbrushwidth=3
 

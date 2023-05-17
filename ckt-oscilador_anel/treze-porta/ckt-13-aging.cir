@@ -13,7 +13,8 @@
 .param Wn = 150n
 
 .SUBCKT inv_32hp in out vdd gnd
-MP_hp1 vdd in out vdd     PMOS_32HP L=32n W=Wp
+vagingp in inp dc 0.1
+MP_hp1 vdd inp out vdd     PMOS_32HP L=32n W=Wp
 MN_hp1 gnd in out gnd     NMOS_32HP L=32n W=Wn
 .ends inv_32hp
 
