@@ -1,3 +1,7 @@
+
+* cd ../../NGSpice/ckt-oscilador_anel/dezessete-portas
+
+********************************************************************************
 * Definindo a temperatura de operação
 .TEMP 25
 

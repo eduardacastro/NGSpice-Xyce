@@ -1,0 +1,134 @@
+
+* cd ../../NGSpice/ckt-oscilador_anel/dezessete-portas
+
+* Definindo a temperatura de operação
+.TEMP 25
+
+* Declarando parametros que serão utilizados nas simulações
+
+.include 32LP.mod
+.include 32HP.mod
+
+* Declarando parametros que serão utilizados nas simulações
+.param supply = 0.9
+
+* Declaração das fontes
+vdd source 0 dc 0.9
+venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
+*vclock 7 5 PWL(0 1 20ns 0) r=-1
+
+* NAND 
+MP1 out_nand enable        source   source PMOS_32HP L=32n W=150n
+MP2 out_nand out_oscilador source   source PMOS_32HP L=32n W=150n
+MN1 out_nand enable        dnmos    0      NMOS_32HP L=32n W=250n
+MN2 dnmos    out_oscilador 0        0      NMOS_32HP L=32n W=250n  
+
+
+* Declaração do inversor 1
+MP_hp1 out_inv1 out_nand source source PMOS_32HP L=32n W=200n
+MN_hp1 out_inv1 out_nand 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 2
+MP_hp2 out_inv2 out_inv1 source source PMOS_32HP L=32n W=200n
+MN_hp2 out_inv2 out_inv1 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 3
+MP_hp3 out_inv3 out_inv2 source source PMOS_32HP L=32n W=200n
+MN_hp3 out_inv3 out_inv2 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 4
+MP_hp4 out_inv4 out_inv3 source source PMOS_32HP L=32n W=200n
+MN_hp4 out_inv4 out_inv3 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 5
+MP_hp5 out_inv5 out_inv4 source source PMOS_32HP L=32n W=200n
+MN_hp5 out_inv5 out_inv4 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 6
+MP_hp6 out_inv6 out_inv5 source source PMOS_32HP L=32n W=200n
+MN_hp6 out_inv6 out_inv5 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 7
+MP_hp7 out_inv7 out_inv6 source source PMOS_32HP L=32n W=200n
+MN_hp7 out_inv7 out_inv6 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 8
+MP_hp8 out_inv8 out_inv7 source source PMOS_32HP L=32n W=200n
+MN_hp8 out_inv8 out_inv7 0      0      NMOS_32HP L=32n W=100n
+* Declaração do inversor 9
+MP_hp9 out_inv9 out_inv8 source source PMOS_32HP L=32n W=200n
+MN_hp9 out_inv9 out_inv8 0      0      NMOS_32HP L=32n W=100n
+* Declaração do inversor 10
+MP_hp10 out_inv10 out_inv9 source source PMOS_32HP L=32n W=200n
+MN_hp10 out_inv10 out_inv9 0      0      NMOS_32HP L=32n W=100n
+* Declaração do inversor 11
+MP_hp11 out_inv11 out_inv10 source source PMOS_32HP L=32n W=200n
+MN_hp11 out_inv11 out_inv10 0      0      NMOS_32HP L=32n W=100n
+* Declaração do inversor 12
+MP_hp12 out_inv12 out_inv11 source source PMOS_32HP L=32n W=200n
+MN_hp12 out_inv12 out_inv11 0      0      NMOS_32HP L=32n W=100n
+* Declaração do inversor 13
+MP_hp13 out_inv13 out_inv12 source source PMOS_32HP L=32n W=200n
+MN_hp13 out_inv13 out_inv12 0      0      NMOS_32HP L=32n W=100n
+* Declaração do inversor 14
+MP_hp14 out_inv14 out_inv13 source source PMOS_32HP L=32n W=200n
+MN_hp14 out_inv14 out_inv13 0      0      NMOS_32HP L=32n W=100n
+* Declaração do inversor 15
+MP_hp15 out_inv15 out_inv14 source source PMOS_32HP L=32n W=200n
+MN_hp15 out_inv15 out_inv14 0      0      NMOS_32HP L=32n W=100n
+* Declaração do inversor 16
+MP_hp16 out_oscilador out_inv15 source source PMOS_32HP L=32n W=200n
+MN_hp16 out_oscilador out_inv15 0      0      NMOS_32HP L=32n W=100n
+
+****************************************************************************
+* Saida do Oscilador
+* Declaração do inversor 5
+MP_hp17 out_inv17 out_oscilador source source PMOS_32HP L=32n W=80n
+MN_hp17 out_inv17 out_oscilador 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 5
+MP_hp18 out_inv18 out_inv17 source source PMOS_32HP L=32n W=200n
+MN_hp18 out_inv18 out_inv17 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 5
+MP_hp19 out_inv19 out_inv18 source source PMOS_32HP L=32n W=150n
+MN_hp19 out_inv19 out_inv18 0      0      NMOS_32HP L=32n W=8000n
+
+
+* Declarando o tipo de simulação 
+
+.tran 0.005n 1n
+*******************************************************************
+
+.control
+
+run
+
+* saida lógica
+*spec 0 1K 100 3
+
+    set color0=white
+    set xbrushwidth=3
+
+    plot v(out_inv2) 
+    plot v(out_inv2) v(enable)
+    MEAS TRAN periodo TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 RISE=3
+    MEAS TRAN tempo_alto TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 FALL=3
+    MEAS TRAN tempo_baixo TRIG v(out_inv2) VAL=0.45 FALL=3 TARG v(out_inv2) VAL=0.45 RISE=3
+    MEAS TRAN trise TRIG v(out_inv2) VAL=0.18 RISE=2 TARG v(out_inv2) VAL=0.72 RISE=2
+    MEAS TRAN tfall TRIG v(out_inv2) VAL=0.72 FALL=2 TARG v(out_inv2) VAL=0.18 FALL=2
+
+    
+.endc
+.end
+
+*******************************************************************
+*out_inv2 => melhor até agora
+*
+*periodo             =  1.529768e-10 targ=  5.002094e-10 trig=  3.472326e-10
+*tempo_alto          =  7.523420e-11 targ=  4.224668e-10 trig=  3.472326e-10
+*tempo_baixo         =  7.774255e-11 targ=  5.002094e-10 trig=  4.224668e-10
+*trise               =  6.222205e-12 targ=  3.505271e-10 trig=  3.443048e-10
+*tfall               =  6.075154e-12 targ=  2.718823e-10 trig=  2.658071e-10
+*
+*
