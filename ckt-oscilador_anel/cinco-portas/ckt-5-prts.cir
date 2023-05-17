@@ -7,7 +7,14 @@
 .include 32HP.mod
 
 * Declarando parametros que serão utilizados nas simulações
-.param supply = 0.9
+.param Wn = 100n
+.param Wp = 150n
+
+.SUBCKT inv_32hp in out vdd gnd
+vagingp in inp dc 0.1
+MP_hp1 vdd inp out vdd     PMOS_32HP L=32n Wp
+MN_hp1 gnd in out gnd     NMOS_32HP L=32n Wn
+.ends inv_32hp
 
 * Declaração das fontes
 vdd source 0 dc 0.9
@@ -21,21 +28,11 @@ MN1 out_nand enable        dnmos    0      NMOS_32HP L=32n W=200n
 MN2 dnmos    out_oscilador 0        0      NMOS_32HP L=32n W=200n  
 
 
-* Declaração do inversor 1
-MP_hp1 out_inv1 out_nand source source PMOS_32HP L=32n W=150n
-MN_hp1 out_inv1 out_nand 0      0      NMOS_32HP L=32n W=100n
-
-* Declaração do inversor 2
-MP_hp2 out_inv2 out_inv1 source source PMOS_32HP L=32n W=150n
-MN_hp2 out_inv2 out_inv1 0      0      NMOS_32HP L=32n W=100n
-
-* Declaração do inversor 3
-MP_hp3 out_inv3 out_inv2 source source PMOS_32HP L=32n W=150n
-MN_hp3 out_inv3 out_inv2 0      0      NMOS_32HP L=32n W=100n
-
-* Declaração do inversor 4
-MP_hp4 out_oscilador out_inv3 source source PMOS_32HP L=32n W=150n
-MN_hp4 out_oscilador out_inv3 0      0      NMOS_32HP L=32n W=100n
+* Xinv32hp in out vdd gnd inv_32hp
+Xinv1 out_nand out_inv1 source 0 inv_32hp
+Xinv2 out_inv1 out_inv2 source 0 inv_32hp
+Xinv3 out_inv2 out_inv3 source 0 inv_32hp
+Xinv4 out_inv3 out_oscilador source 0 inv_32hp
 
 
 * Declarando o tipo de simulação 
