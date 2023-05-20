@@ -1,0 +1,51 @@
+* Definindo a temperatura de operação
+.TEMP 25
+
+* Declarando parametros que serão utilizados nas simulações
+
+.include 32LP.mod
+.include 32HP.mod
+
+* Declarando parametros que serão utilizados nas simulações
+.param Wn = 100n
+.param Wp = 150n
+
+
+* Declaração das fontes
+vdd source 0 dc 0.9
+vagingp enable enablep dc 0.1
+venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
+*vclock 7 5 PWL(0 1 20ns 0) r=-1
+
+* NAND 
+MP1 out_nand enablep        source   source PMOS_32HP L=32n W=150n
+MP2 out_nand out_oscilador source   source PMOS_32HP L=32n W=150n
+MN1 out_nand enablep        dnmos    0      NMOS_32HP L=32n W=200n
+MN2 dnmos    out_oscilador 0        0      NMOS_32HP L=32n W=200n  
+
+
+* Declarando o tipo de simulação 
+
+.tran 0.005n 1n
+*******************************************************************
+
+
+.control
+
+run
+
+* saida lógica
+*spec 0 1K 100 3
+
+    set color0=white
+    set xbrushwidth=3
+
+    plot v(out_oscilador) 
+    plot v(out_oscilador) v(enable)
+    *MEAS TRAN periodo TRIG v(out_oscilador) VAL=0.45 RISE=2 TARG v(out_oscilador) VAL=0.45 RISE=3
+    *MEAS TRAN tempo_alto TRIG v(out_oscilador) VAL=0.45 RISE=2 TARG v(out_oscilador) VAL=0.45 FALL=3
+    *MEAS TRAN tempo_baixo TRIG v(out_oscilador) VAL=0.45 FALL=3 TARG v(out_oscilador) VAL=0.45 RISE=3
+    *MEAS TRAN trise TRIG v(out_oscilador) VAL=0.18 RISE=2 TARG v(out_oscilador) VAL=0.72 RISE=2
+    *MEAS TRAN tfall TRIG v(out_oscilador) VAL=0.72 FALL=2 TARG v(out_oscilador) VAL=0.18 FALL=2
+.endc
+.end

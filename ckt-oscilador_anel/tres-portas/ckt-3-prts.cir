@@ -8,7 +8,7 @@
 
 * Declarando parametros que serão utilizados nas simulações
 .param Wn = 100n
-.param Wp = 150n
+.param Wp = 200n
 
 .SUBCKT inv_32hp in out vdd gnd
 MP_hp1 vdd in out vdd     PMOS_32HP L=32n W=Wp
@@ -23,13 +23,27 @@ venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
 * NAND 
 MP1 out_nand enable        source   source PMOS_32HP L=32n W=150n
 MP2 out_nand out_oscilador source   source PMOS_32HP L=32n W=150n
-MN1 out_nand enable        dnmos    0      NMOS_32HP L=32n W=200n
-MN2 dnmos    out_oscilador 0        0      NMOS_32HP L=32n W=200n  
+MN1 out_nand enable        dnmos    0      NMOS_32HP L=32n W=250n
+MN2 dnmos    out_oscilador 0        0      NMOS_32HP L=32n W=250n  
 
 
 * Xinv32hp in out vdd gnd inv_32hp
 Xinv1 out_nand out_inv1 source 0 inv_32hp
 Xinv2 out_inv1 out_oscilador source 0 inv_32hp
+
+****************************************************************************
+* Saida do Oscilador
+* Declaração do inversor 5
+MP_hp17 out_inv17 out_oscilador source source PMOS_32HP L=32n W=80n
+MN_hp17 out_inv17 out_oscilador 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 5
+MP_hp18 out_inv18 out_inv17 source source PMOS_32HP L=32n W=200n
+MN_hp18 out_inv18 out_inv17 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 5
+MP_hp19 out_inv19 out_inv18 source source PMOS_32HP L=32n W=150n
+MN_hp19 out_inv19 out_inv18 0      0      NMOS_32HP L=32n W=8000n
 
 
 * Declarando o tipo de simulação 
@@ -50,10 +64,10 @@ run
 
     plot v(out_oscilador) 
     plot v(out_oscilador) v(enable)
-    *MEAS TRAN periodo TRIG v(out_oscilador) VAL=0.45 RISE=2 TARG v(out_oscilador) VAL=0.45 RISE=3
-    *MEAS TRAN tempo_alto TRIG v(out_oscilador) VAL=0.45 RISE=2 TARG v(out_oscilador) VAL=0.45 FALL=3
-    *MEAS TRAN tempo_baixo TRIG v(out_oscilador) VAL=0.45 FALL=3 TARG v(out_oscilador) VAL=0.45 RISE=3
-    *MEAS TRAN trise TRIG v(out_oscilador) VAL=0.18 RISE=2 TARG v(out_oscilador) VAL=0.72 RISE=2
-    *MEAS TRAN tfall TRIG v(out_oscilador) VAL=0.72 FALL=2 TARG v(out_oscilador) VAL=0.18 FALL=2
+    MEAS TRAN periodo TRIG v(out_oscilador) VAL=0.45 RISE=2 TARG v(out_oscilador) VAL=0.45 RISE=3
+    MEAS TRAN tempo_alto TRIG v(out_oscilador) VAL=0.45 RISE=2 TARG v(out_oscilador) VAL=0.45 FALL=3
+    MEAS TRAN tempo_baixo TRIG v(out_oscilador) VAL=0.45 FALL=3 TARG v(out_oscilador) VAL=0.45 RISE=3
+    MEAS TRAN trise TRIG v(out_oscilador) VAL=0.18 RISE=2 TARG v(out_oscilador) VAL=0.72 RISE=2
+    MEAS TRAN tfall TRIG v(out_oscilador) VAL=0.72 FALL=2 TARG v(out_oscilador) VAL=0.18 FALL=2
 .endc
 .end
