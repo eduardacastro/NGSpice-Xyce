@@ -1,4 +1,3 @@
-* cd ../../NGSpice/ckt-oscilador_anel/cinco-portas
 * Definindo a temperatura de operação
 .TEMP 25
 
@@ -11,30 +10,35 @@
 .param Wn = 100n
 .param Wp = 200n
 
-
 .SUBCKT inv_32hp in out vdd gnd
-MP_hp1 vdd in out vdd     PMOS_32HP L=32n W=Wp
+vagingp in inp dc -0.16
+vagingn in inn dc 0.16
+MP_hp1 vdd inp out vdd     PMOS_32HP L=32n W=Wp
 MN_hp1 gnd in out gnd     NMOS_32HP L=32n W=Wn
 .ends inv_32hp
+
+.SUBCKT NAND A B out vdd gnd
+Vagingp1 A inp1 dc -0.16
+Vagingn1 A inn1 dc 0.16
+Vagingp2 B inp2 dc -0.16
+Vagingn2 B inn2 dc 0.16
+MP1 out inp1 vdd vdd PMOS_32HP L=32n W=150n
+MP2 out inp2 vdd vdd PMOS_32HP L=32n W=150n
+MN1 out inn1 dnmos gnd NMOS_32HP L=32n W=250n
+MN2 dnmos inn2 gnd gnd NMOS_32HP L=32n W=250n
+.ends NAND
 
 * Declaração das fontes
 vdd source 0 dc 0.9
 venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
 *vclock 7 5 PWL(0 1 20ns 0) r=-1
 
-* NAND 
-MP1 out_nand enable        source   source PMOS_32HP L=32n W=150n
-MP2 out_nand out_oscilador source   source PMOS_32HP L=32n W=150n
-MN1 out_nand enable        dnmos    0      NMOS_32HP L=32n W=250n
-MN2 dnmos    out_oscilador 0        0      NMOS_32HP L=32n W=250n  
-
+* Xnand A B out vdd gnd NAND
+Xnand enable out_oscilador out_nand source 0 NAND
 
 * Xinv32hp in out vdd gnd inv_32hp
 Xinv1 out_nand out_inv1 source 0 inv_32hp
-Xinv2 out_inv1 out_inv2 source 0 inv_32hp
-Xinv3 out_inv2 out_inv3 source 0 inv_32hp
-Xinv4 out_inv3 out_oscilador source 0 inv_32hp
-
+Xinv2 out_inv1 out_oscilador source 0 inv_32hp
 
 ****************************************************************************
 * Saida do Oscilador
@@ -51,11 +55,11 @@ MP_hp19 out_inv19 out_inv18 source source PMOS_32HP L=32n W=150n
 MN_hp19 out_inv19 out_inv18 0      0      NMOS_32HP L=32n W=8000n
 
 
-
 * Declarando o tipo de simulação 
 
 .tran 0.005n 1n
 *******************************************************************
+
 
 .control
 
@@ -67,12 +71,12 @@ run
     set color0=white
     set xbrushwidth=3
 
-    plot v(out_inv2) 
-    plot v(out_inv2) v(enable)
-    MEAS TRAN periodo TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 RISE=3
-    MEAS TRAN tempo_alto TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 FALL=3
-    MEAS TRAN tempo_baixo TRIG v(out_inv2) VAL=0.45 FALL=3 TARG v(out_inv2) VAL=0.45 RISE=3
-    MEAS TRAN trise TRIG v(out_inv2) VAL=0.18 RISE=2 TARG v(out_inv2) VAL=0.72 RISE=2
-    MEAS TRAN tfall TRIG v(out_inv2) VAL=0.72 FALL=2 TARG v(out_inv2) VAL=0.18 FALL=2
+   * plot v(out_oscilador) 
+    *plot v(out_oscilador) v(enable)
+    MEAS TRAN periodo TRIG v(out_oscilador) VAL=0.45 RISE=2 TARG v(out_oscilador) VAL=0.45 RISE=3
+    MEAS TRAN tempo_alto TRIG v(out_oscilador) VAL=0.45 RISE=2 TARG v(out_oscilador) VAL=0.45 FALL=3
+    MEAS TRAN tempo_baixo TRIG v(out_oscilador) VAL=0.45 FALL=3 TARG v(out_oscilador) VAL=0.45 RISE=3
+    MEAS TRAN trise TRIG v(out_oscilador) VAL=0.18 RISE=2 TARG v(out_oscilador) VAL=0.72 RISE=2
+    MEAS TRAN tfall TRIG v(out_oscilador) VAL=0.72 FALL=2 TARG v(out_oscilador) VAL=0.18 FALL=2
 .endc
 .end
