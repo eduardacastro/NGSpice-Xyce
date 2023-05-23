@@ -1,3 +1,4 @@
+* cd ../../NGSpice/ckt-oscilador_anel/cinco-portas
 * Definindo a temperatura de operação
 .TEMP 25
 
@@ -7,24 +8,26 @@
 .include 32HP.mod
 
 * Declarando parametros que serão utilizados nas simulações
-.param Wp = 100n
-.param Wn = 150n
-* Declaração das fontes
-vdd source 0 dc 0.9
-venable enable 0 PWL(0 0.9) r=-1
-*vclock 7 5 PWL(0 1 20ns 0) r=-1
+.param Wn = 100n
+.param Wp = 200n
+
 
 .SUBCKT inv_32hp in out vdd gnd
 MP_hp1 vdd in out vdd     PMOS_32HP L=32n W=Wp
 MN_hp1 gnd in out gnd     NMOS_32HP L=32n W=Wn
 .ends inv_32hp
 
+* Declaração das fontes
+vdd source 0 dc 0.9
+venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
+*vclock 7 5 PWL(0 1 20ns 0) r=-1
 
 * NAND 
-MP1 out_nand enable        source   source PMOS_32HP L=32n W=100n
-MP2 out_nand out_oscilador source   source PMOS_32HP L=32n W=100n
-MN1 out_nand enable        dnmos    0      NMOS_32HP L=32n W=100n
-MN2 dnmos    out_oscilador 0        0      NMOS_32HP L=32n W=100n  
+MP1 out_nand enable        source   source PMOS_32HP L=32n W=150n
+MP2 out_nand out_oscilador source   source PMOS_32HP L=32n W=150n
+MN1 out_nand enable        dnmos    0      NMOS_32HP L=32n W=250n
+MN2 dnmos    out_oscilador 0        0      NMOS_32HP L=32n W=250n  
+
 
 * Xinv32hp in out vdd gnd inv_32hp
 Xinv1 out_nand out_inv1 source 0 inv_32hp
@@ -37,6 +40,22 @@ Xinv7 out_inv6 out_inv7 source 0 inv_32hp
 Xinv8 out_inv7 out_inv8 source 0 inv_32hp
 Xinv9 out_inv8 out_inv9 source 0 inv_32hp
 Xinv10 out_inv9 out_oscilador source 0 inv_32hp
+
+****************************************************************************
+* Saida do Oscilador
+* Declaração do inversor 5
+MP_hp17 out_inv17 out_oscilador source source PMOS_32HP L=32n W=80n
+MN_hp17 out_inv17 out_oscilador 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 5
+MP_hp18 out_inv18 out_inv17 source source PMOS_32HP L=32n W=200n
+MN_hp18 out_inv18 out_inv17 0      0      NMOS_32HP L=32n W=100n
+
+* Declaração do inversor 5
+MP_hp19 out_inv19 out_inv18 source source PMOS_32HP L=32n W=150n
+MN_hp19 out_inv19 out_inv18 0      0      NMOS_32HP L=32n W=8000n
+
+
 
 * Declarando o tipo de simulação 
 
@@ -60,6 +79,5 @@ run
     MEAS TRAN tempo_baixo TRIG v(out_inv2) VAL=0.45 FALL=3 TARG v(out_inv2) VAL=0.45 RISE=3
     MEAS TRAN trise TRIG v(out_inv2) VAL=0.18 RISE=2 TARG v(out_inv2) VAL=0.72 RISE=2
     MEAS TRAN tfall TRIG v(out_inv2) VAL=0.72 FALL=2 TARG v(out_inv2) VAL=0.18 FALL=2
-
 .endc
 .end
