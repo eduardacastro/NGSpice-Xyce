@@ -24,7 +24,7 @@ MN_hp1 gnd in out gnd     NMOS_32HP L=32n W=Wn
 iradp1 vdd out dc 10u
 iradp2 vdd out dc 10u
 iradn1 dnmos out dc -10u
-iradn2 gnd dnmos dc -10u
+iradn2 gnd dnmos dc -1u
 *<drain gate source drain>
 MP1 out A vdd vdd PMOS_32HP L=32n W=150n
 MP2 out B vdd vdd PMOS_32HP L=32n W=150n
