@@ -64,21 +64,6 @@ Xinv14 out_inv13 out_inv14 source 0 inv_32hp
 Xinv15 out_inv14 out_inv15 source 0 inv_32hp
 Xinv16 out_inv15 out_oscilador source 0 inv_32hp
 
-****************************************************************************
-* Saida do Oscilador
-* Declaração do inversor 5
-*MP_hp17 out_inv17 out_oscilador source source PMOS_32HP L=32n W=80n
-*MN_hp17 out_inv17 out_oscilador 0      0      NMOS_32HP L=32n W=100n
-
-* Declaração do inversor 5
-*MP_hp18 out_inv18 out_inv17 source source PMOS_32HP L=32n W=200n
-*MN_hp18 out_inv18 out_inv17 0      0      NMOS_32HP L=32n W=100n
-
-* Declaração do inversor 5
-*MP_hp19 out_inv19 out_inv18 source source PMOS_32HP L=32n W=150n
-*MN_hp19 out_inv19 out_inv18 0      0      NMOS_32HP L=32n W=8000n
-
-
 
 * Declarando o tipo de simulação 
 
