@@ -17,18 +17,18 @@ venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
 *vclock 7 5 PWL(0 1 20ns 0) r=-1
 
 .SUBCKT inv_32hp in out vdd gnd
-iradp1 vdd out dc 10u
-iradn1 gnd out dc -10u
+iradp1 vdd out dc -100u
+iradn1 gnd out dc 100u
 
 MP_hp1 vdd in out vdd     PMOS_32HP L=32n W=Wp
 MN_hp1 gnd in out gnd     NMOS_32HP L=32n W=Wn
 .ends inv_32hp
 
 .SUBCKT NAND A B out vdd gnd
-iradp1 vdd out dc 10u
-iradp2 vdd out dc 10u
-iradn1 dnmos out dc -10u
-iradn2 gnd dnmos dc -1u
+iradp1 vdd out dc -100u
+iradp2 vdd out dc -100u
+iradn1 dnmos out dc 100u
+iradn2 gnd dnmos dc 100u
 *<drain gate source drain>
 MP1 out A vdd vdd PMOS_32HP L=32n W=150n
 MP2 out B vdd vdd PMOS_32HP L=32n W=150n
@@ -48,16 +48,16 @@ Xinv4 out_inv3 out_oscilador source 0 inv_32hp
 ****************************************************************************
 * Saida do Oscilador
 * Declaração do inversor 5
-*MP_hp17 out_inv17 out_oscilador source source PMOS_32HP L=32n W=80n
-*MN_hp17 out_inv17 out_oscilador 0      0      NMOS_32HP L=32n W=100n
+MP_hp17 out_inv17 out_oscilador source source PMOS_32HP L=32n W=80n
+MN_hp17 out_inv17 out_oscilador 0      0      NMOS_32HP L=32n W=100n
 
 * Declaração do inversor 5
-*MP_hp18 out_inv18 out_inv17 source source PMOS_32HP L=32n W=200n
-*MN_hp18 out_inv18 out_inv17 0      0      NMOS_32HP L=32n W=100n
+MP_hp18 out_inv18 out_inv17 source source PMOS_32HP L=32n W=200n
+MN_hp18 out_inv18 out_inv17 0      0      NMOS_32HP L=32n W=100n
 
 * Declaração do inversor 5
-*MP_hp19 out_inv19 out_inv18 source source PMOS_32HP L=32n W=150n
-*MN_hp19 out_inv19 out_inv18 0      0      NMOS_32HP L=32n W=8000n
+MP_hp19 out_inv19 out_inv18 source source PMOS_32HP L=32n W=150n
+MN_hp19 out_inv19 out_inv18 0      0      NMOS_32HP L=32n W=8000n
 
 
 
