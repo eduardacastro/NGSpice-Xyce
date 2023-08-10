@@ -10,6 +10,7 @@
 * Declarando parametros que serão utilizados nas simulações
 .param Wn = 100n
 .param Wp = 200n
+.param rad = 10u
 
 * Declaração das fontes
 vdd source 0 dc 0.9
@@ -17,18 +18,18 @@ venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
 *vclock 7 5 PWL(0 1 20ns 0) r=-1
 
 .SUBCKT inv_32hp in out vdd gnd
-iradp1 vdd out dc -10000n
-iradn1 gnd out dc 10000n
+iradp1 vdd out dc rad
+iradn1 out gnd dc rad
 
 MP_hp1 vdd in out vdd     PMOS_32HP L=32n W=Wp
 MN_hp1 gnd in out gnd     NMOS_32HP L=32n W=Wn
 .ends inv_32hp
 
 .SUBCKT NAND A B out vdd gnd
-iradp1 vdd out dc -10000n
-iradp2 vdd out dc -10000n
-iradn1 dnmos out dc 10000n
-iradn2 gnd dnmos dc 10000n
+iradp1 vdd out dc rad
+iradp2 vdd out dc rad
+iradn1 out dnmos dc rad
+iradn2 dnmos gnd dc rad
 *<drain gate source drain>
 MP1 out A vdd vdd PMOS_32HP L=32n W=150n
 MP2 out B vdd vdd PMOS_32HP L=32n W=150n
@@ -49,21 +50,6 @@ Xinv5 out_inv4 out_inv5 source 0 inv_32hp
 Xinv6 out_inv5 out_oscilador source 0 inv_32hp
 
 
-****************************************************************************
-* Saida do Oscilador
-* Declaração do inversor 5
-*MP_hp17 out_inv17 out_oscilador source source PMOS_32HP L=32n W=80n
-*MN_hp17 out_inv17 out_oscilador 0      0      NMOS_32HP L=32n W=100n
-
-* Declaração do inversor 5
-*MP_hp18 out_inv18 out_inv17 source source PMOS_32HP L=32n W=200n
-*MN_hp18 out_inv18 out_inv17 0      0      NMOS_32HP L=32n W=100n
-
-* Declaração do inversor 5
-*MP_hp19 out_inv19 out_inv18 source source PMOS_32HP L=32n W=150n
-*MN_hp19 out_inv19 out_inv18 0      0      NMOS_32HP L=32n W=8000n
-
-
 
 * Declarando o tipo de simulação 
 
@@ -80,8 +66,8 @@ run
     set color0=white
     set xbrushwidth=3
 
-    plot v(out_inv2) 
-    plot v(out_inv2) v(enable)
+    *plot v(out_inv2) 
+    *plot v(out_inv2) v(enable)
     MEAS TRAN periodo TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 RISE=3
     MEAS TRAN tempo_alto TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 FALL=3
     MEAS TRAN tempo_baixo TRIG v(out_inv2) VAL=0.45 FALL=3 TARG v(out_inv2) VAL=0.45 RISE=3
