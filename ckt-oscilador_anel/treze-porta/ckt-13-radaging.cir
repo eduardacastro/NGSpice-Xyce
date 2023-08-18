@@ -10,7 +10,7 @@
 * Declarando parametros que serão utilizados nas simulações
 .param Wn = 100n
 .param Wp = 200n
-.param rad = 100u
+.param rad = 100p
 .param agingp = -0.16
 .param agingn = 0.16
 
@@ -39,10 +39,10 @@ Vagingn1 A inn1 dc agingn
 Vagingp2 B inp2 dc agingp
 Vagingn2 B inn2 dc agingn
 *<drain gate source drain>
-MP1 out A vdd vdd PMOS_32HP L=32n W=150n
-MP2 out B vdd vdd PMOS_32HP L=32n W=150n
-MN1 out A dnmos gnd NMOS_32HP L=32n W=250n
-MN2 dnmos B gnd gnd NMOS_32HP L=32n W=250n
+MP1 out inp1 vdd vdd PMOS_32HP L=32n W=Wp
+MP2 out inp2 vdd vdd PMOS_32HP L=32n W=Wp
+MN1 out inn1 dnmos gnd NMOS_32HP L=32n W=Wn
+MN2 dnmos inn2 gnd gnd NMOS_32HP L=32n W=Wn
 .ends NAND
 
 

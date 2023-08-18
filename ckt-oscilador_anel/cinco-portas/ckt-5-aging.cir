@@ -48,19 +48,6 @@ Xinv4 out_inv3 out_oscilador source 0 inv_32hp
 
 
 ****************************************************************************
-* Saida do Oscilador
-* Declaração do inversor 5
-MP_hp17 out_inv17 out_oscilador source source PMOS_32HP L=32n W=80n
-MN_hp17 out_inv17 out_oscilador 0      0      NMOS_32HP L=32n W=100n
-
-* Declaração do inversor 5
-MP_hp18 out_inv18 out_inv17 source source PMOS_32HP L=32n W=200n
-MN_hp18 out_inv18 out_inv17 0      0      NMOS_32HP L=32n W=100n
-
-* Declaração do inversor 5
-MP_hp19 out_inv19 out_inv18 source source PMOS_32HP L=32n W=150n
-MN_hp19 out_inv19 out_inv18 0      0      NMOS_32HP L=32n W=8000n
-
 
 
 * Declarando o tipo de simulação 
@@ -78,8 +65,8 @@ run
     set color0=white
     set xbrushwidth=3
 
-    plot v(out_inv2) 
-    plot v(out_inv2) v(enable)
+    *plot v(out_inv2) 
+    *plot v(out_inv2) v(enable)
     MEAS TRAN periodo TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 RISE=3
     MEAS TRAN tempo_alto TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 FALL=3
     MEAS TRAN tempo_baixo TRIG v(out_inv2) VAL=0.45 FALL=3 TARG v(out_inv2) VAL=0.45 RISE=3

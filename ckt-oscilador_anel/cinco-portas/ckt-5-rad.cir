@@ -10,7 +10,7 @@
 * Declarando parametros que serão utilizados nas simulações
 .param Wn = 100n
 .param Wp = 200n
-.param rad = 100u
+.param rad = 100u 
 
 * Declaração das fontes
 vdd source 0 dc 0.9

@@ -10,7 +10,7 @@
 * Declarando parametros que serão utilizados nas simulações
 .param Wn = 100n
 .param Wp = 200n
-.param rad = 10u
+.param rad = 100u
 
 * Declaração das fontes
 vdd source 0 dc 0.9
@@ -48,7 +48,6 @@ Xinv3 out_inv2 out_inv3 source 0 inv_32hp
 Xinv4 out_inv3 out_inv4 source 0 inv_32hp
 Xinv5 out_inv4 out_inv5 source 0 inv_32hp
 Xinv6 out_inv5 out_oscilador source 0 inv_32hp
-
 
 
 * Declarando o tipo de simulação 

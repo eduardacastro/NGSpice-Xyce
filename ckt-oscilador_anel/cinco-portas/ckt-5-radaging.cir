@@ -10,9 +10,9 @@
 * Declarando parametros que serão utilizados nas simulações
 .param Wn = 100n
 .param Wp = 200n
-.param rad = 10n
-.param agingp = -0.16
-.param agingn = 0.16
+.param rad = 100u
+.param agingp = -0.01
+.param agingn = 0.01
 
 * Declaração das fontes
 vdd source 0 dc 0.9

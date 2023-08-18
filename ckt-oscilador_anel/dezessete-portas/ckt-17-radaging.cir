@@ -10,7 +10,7 @@
 * Declarando parametros que serão utilizados nas simulações
 .param Wn = 100n
 .param Wp = 200n
-*.param rad = 1p
+.param rad = 10u
 .param agingp = -0.16
 .param agingn = 0.16
 * Declaração das fontes
@@ -18,8 +18,8 @@ vdd source 0 dc 0.9
 venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
 
 .SUBCKT inv_32hp in out vdd gnd
-*iradp1 vdd out dc rad
-*iradn1 out gnd dc rad
+iradp1 vdd out dc rad
+iradn1 out gnd dc rad
 vagingp in inp dc agingp
 vagingn in inn dc agingn
 MP_hp1 vdd inp out vdd     PMOS_32HP L=32n W=Wp
@@ -27,10 +27,10 @@ MN_hp1 gnd inn out gnd     NMOS_32HP L=32n W=Wn
 .ends inv_32hp
 
 .SUBCKT NAND A B out vdd gnd
-*iradp1 vdd out dc rad
-*iradp2 vdd out dc rad
-*iradn1 out dnmos dc rad
-*iradn2 dnmos gnd dc rad
+iradp1 vdd out dc rad
+iradp2 vdd out dc rad
+iradn1 out dnmos dc rad
+iradn2 dnmos gnd dc rad
 Vagingp1 A inp1 dc agingp
 Vagingn1 A inn1 dc agingn
 Vagingp2 B inp2 dc agingp
