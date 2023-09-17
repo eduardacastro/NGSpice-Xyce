@@ -20,8 +20,6 @@ MN_hp1 gnd in out gnd     NMOS_32HP L=32n W=Wn
 * Declaração das fontes
 vdd source 0 dc 0.9
 venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
-*vclock 7 5 PWL(0 1 20ns 0) r=-1
-*venable enable 0 PWL(0 0 1n 0 1.01n 0.9 2.0n 0.9 2.01n 0) r=-1
 
 .SUBCKT NAND A B out vdd gnd
 
@@ -55,12 +53,12 @@ Xinv15 out_inv14 out_inv15 source 0 inv_32hp
 Xinv16 out_inv15 out_oscilador source 0 inv_32hp
 
 ****************************************************************************
-
-*iexp 0 out_nand exp(0 150u 1.05n 10p 1.00001n 400p)
+vaux out_inv2 aux 0
+iexp 0 aux exp(0 160u 0.88n 2p 0.895n 4p)
 
 * Declarando o tipo de simulação 
 
-.tran 0.005n 5n
+.tran 1p 2n
 *******************************************************************
 
 .control
@@ -73,9 +71,10 @@ run
     set color0=white
     set xbrushwidth=3
 
-    plot v(out_inv2)
+    *plot v(out_inv2)
     *plot v(out_nand) 
     *plot v(out_inv2) v(enable)
+    plot v(out_inv2) v(out_inv3)+1 v(out_inv4)+2 v(out_inv5)+3 v(out_inv1)+4 
     MEAS TRAN periodo TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 RISE=3
     MEAS TRAN tempo_alto TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 FALL=3
     MEAS TRAN tempo_baixo TRIG v(out_inv2) VAL=0.45 FALL=3 TARG v(out_inv2) VAL=0.45 RISE=3
