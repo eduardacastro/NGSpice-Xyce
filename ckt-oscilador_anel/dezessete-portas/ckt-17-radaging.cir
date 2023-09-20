@@ -11,8 +11,8 @@
 .param Wn = 100n
 .param Wp = 200n
 .param rad = 1p
-.param agingp = -0.01
-.param agingn = 0.01
+.param agingp = -0.04
+.param agingn = 0.04
 * Declaração das fontes
 vdd source 0 dc 0.9
 venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
@@ -66,8 +66,8 @@ Xinv15 out_inv14 out_inv15 source 0 inv_32hp
 Xinv16 out_inv15 out_oscilador source 0 inv_32hp
 
 vaux out_inv2 aux 0
-iexp 0 aux exp(0 160u 1n 2p 1.015n 4p)
-iexp2 aux 0 exp(0 230u 0.23n 2p 0.245n 4p)
+iexp 0 aux exp(0 159u 1.04n 2p 1.055n 4p)
+iexp2 aux 0 exp(0 185u 0.23n 2p 0.245n 4p)
 * Declarando o tipo de simulação 
 
 .tran 0.005n 2n
