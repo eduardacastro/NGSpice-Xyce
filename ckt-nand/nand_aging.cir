@@ -12,10 +12,10 @@ vin1 in1 0 PULSE (0 1.8 0 0.1n 0.1n 5n 10n)
 vin2 in2 0 PULSE (0 1.8 0 0.1n 0.1n 10n 20n)
 
 ; Adicione uma fonte de tensão após in1
-vfontep1 in1 vfontep1 dc -0.16
-vfontep2 in2 vfontep2 dc -0.16
-vfonten1 in1 vfonten1 dc 0.16
-vfonten2 in2 vfonten2 dc 0.16
+vfontep1 in1 vfontep1 dc -0.01
+vfontep2 in2 vfontep2 dc -0.01
+vfonten1 in1 vfonten1 dc 0.01
+vfonten2 in2 vfonten2 dc 0.01
 * Circuito da porta NAND
 *<drain> <gate> <source> <bulk>
 ** portas em paralelo
