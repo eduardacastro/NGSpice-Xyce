@@ -1,0 +1,53 @@
+* cd ../../NGSpice/transistors/tran-rad.cir
+* Definindo a temperatura de operação
+.TEMP 25
+
+* Declarando parametros que serão utilizados nas simulações
+
+.include 32LP.mod
+.include 32HP.mod
+
+* Declarando parametros que serão utilizados nas simulações
+.param Wn = 100n
+.param Wp = 200n
+
+
+vsource source 0 dc 0
+*vdreno dreno 0 dc 0.9
+vgate gate 0 dc 0.9
+vbulk0 bulk0 0 dc 0
+vbulk1n bulk1n 0 dc 0
+
+itid0 source bulk0 0
+itid1n source bulk1n 1m
+
+vdreno0 dreno0 0 dc 0.9
+vdreno1n dreno1n 0 dc 0.9
+
+MN1 dreno0 gate source bulk0 NMOS_32HP L=32n W=250n
+MN2 dreno1n gate source bulk1n NMOS_32HP L=32n W=250n
+
+
+
+
+
+
+* Declarando o tipo de simulação 
+
+.dc vgate 0 0.9 0.01
+*******************************************************************
+
+.control
+run
+
+* saida lógica
+*spec 0 1K 100 3
+
+    set color0=gray
+    set xbrushwidth=3
+    plot i(vdreno0) i(vdreno1n)
+    *plot i(vdreno0) i(vdrenop)
+    *plot v(out_inv2) 
+    *plot v(out_inv2) v(enable)
+   .endc
+.end

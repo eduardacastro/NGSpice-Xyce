@@ -1,0 +1,87 @@
+* cd ../../NGSpice/transistors/tran-rad.cir
+* Definindo a temperatura de operação
+.TEMP 25
+
+* Declarando parametros que serão utilizados nas simulações
+
+.include 32LP.mod
+.include 32HP.mod
+
+* Declarando parametros que serão utilizados nas simulações
+.param Wn = 100n
+.param Wp = 200n
+
+* Declaração das fontes
+vsourcep sourcep 0 dc 0.9
+vdrenop0 drenop0 0 dc 0
+vdrenop10 drenop10 0 dc 0
+vdrenop20 drenop20 0 dc 0
+vdrenop40 drenop40 0 dc 0
+vdrenop80 drenop80 0 dc 0
+vdrenop160 drenop160 0 dc 0
+vbulkp bulkp 0 dc 0.9
+
+vsource source 0 dc 0
+vdreno0 dreno0 0 dc 0.9
+vdreno10 dreno10 0 dc 0.9
+vdreno20 dreno20 0 dc 0.9
+vdreno40 dreno40 0 dc 0.9
+vdreno80 dreno80 0 dc 0.9
+vdreno160 dreno160 0 dc 0.9
+vgate gate 0 dc 0.9
+vbulk bulk 0 dc 0
+
+
+vaging0 gate gate0 0
+vaging10 gate gate10 0.01
+vaging20 gate gate20 0.02
+vaging40 gate gate40 0.04
+vaging80 gate gate80 0.08
+vaging160 gate gate160 0.16
+
+
+vagingp10 gate gatep10 -0.01
+vagingp20 gate gatep20 -0.02
+vagingp40 gate gatep40 -0.04
+vagingp80 gate gatep80 -0.08
+vagingp160 gate gatep160 -0.16
+
+MN1 dreno0 gate0 source bulk NMOS_32HP L=32n W=250n
+MN2 dreno10 gate10 source bulk NMOS_32HP L=32n W=250n
+MN3 dreno20 gate20 source bulk NMOS_32HP L=32n W=250n
+MN4 dreno40 gate40 source bulk NMOS_32HP L=32n W=250n
+MN5 dreno80 gate80 source bulk NMOS_32HP L=32n W=250n
+MN6 dreno160 gate160 source bulk NMOS_32HP L=32n W=250n
+
+MP1 drenop0 gate sourcep bulkp PMOS_32HP L=32n W=250n
+MP2 drenop10 gatep10 sourcep bulkp PMOS_32HP L=32n W=250n
+MP3 drenop20 gatep20 sourcep bulkp PMOS_32HP L=32n W=250n
+MP4 drenop40 gatep40 sourcep bulkp PMOS_32HP L=32n W=250n
+MP5 drenop80 gatep80 sourcep bulkp PMOS_32HP L=32n W=250n
+MP6 drenop160 gatep160 sourcep bulkp PMOS_32HP L=32n W=250n
+
+
+
+
+* Declarando o tipo de simulação 
+
+.dc vgate 0 0.9 0.01
+*******************************************************************
+
+.control
+run
+
+* saida lógica
+*spec 0 1K 100 3
+
+    set color0=gray
+    set xbrushwidth=3
+    plot i(vdrenop0) i(vdrenop10) i(vdrenop20) i(vdrenop40) i(vdrenop80) i(vdrenop160) 
+    plot i(vdreno0) i(vdreno10) i(vdreno20) i(vdreno40) i(vdreno80) i(vdreno160)
+    plot i(vdreno0) i(vdreno10) i(vdreno20) i(vdreno40) i(vdreno80) i(vdreno160) i(vdrenop0) i(vdrenop10) i(vdrenop20) i(vdrenop40) i(vdrenop80) i(vdrenop160) 
+
+    *plot i(vdreno0) i(vdrenop)
+    *plot v(out_inv2) 
+    *plot v(out_inv2) v(enable)
+   .endc
+.end

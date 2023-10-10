@@ -1,0 +1,73 @@
+* cd ../../NGSpice/ckt-oscilador_anel/tres-portas
+
+* Definindo a temperatura de operação
+.TEMP 25
+
+* Declarando parametros que serão utilizados nas simulações
+
+.include 32LP.mod
+.include 32HP.mod
+
+* Declarando parametros que serão utilizados nas simulações
+.param Wn = 100n
+.param Wp = 200n
+.param agingp = -0.16
+.param agingn = 0.16
+
+* Declaração das fontes
+vdd source 0 dc 0.9
+venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
+*vclock 7 5 PWL(0 1 20ns 0) r=-1
+
+.SUBCKT inv_32hp in out vdd gnd
+vagingp in inp dc agingp
+vagingn in inn dc agingn
+MP_hp1 vdd inp out vdd     PMOS_32HP L=32n W=Wp
+MN_hp1 gnd inn out gnd     NMOS_32HP L=32n W=Wn
+.ends inv_32hp
+
+.SUBCKT NAND A B out vdd gnd
+Vagingp1 A inp1 dc agingp
+Vagingn1 A inn1 dc agingn
+Vagingp2 B inp2 dc agingp
+Vagingn2 B inn2 dc agingn
+*<drain gate source drain>
+MP1 out inp1 vdd vdd PMOS_32HP L=32n W=150n
+MP2 out inp2 vdd vdd PMOS_32HP L=32n W=150n
+MN1 out inn1 dnmos gnd NMOS_32HP L=32n W=250n
+MN2 dnmos inn2 gnd gnd NMOS_32HP L=32n W=250n
+.ends NAND
+
+* Xnand A B out vdd gnd NAND
+Xnand enable out_oscilador out_nand source 0 NAND
+
+* Xinv32hp in out vdd gnd inv_32hp
+Xinv1 out_nand out_inv1 source 0 inv_32hp
+Xinv2 out_inv1 out_oscilador source 0 inv_32hp
+
+
+* Declarando o tipo de simulação 
+
+.tran 0.005n 1n
+*******************************************************************
+
+
+.control
+
+run
+
+* saida lógica
+*spec 0 1K 100 3
+
+    set color0=white
+    set xbrushwidth=3
+
+   * plot v(out_oscilador) 
+    *plot v(out_oscilador) v(enable)
+    MEAS TRAN periodo TRIG v(out_oscilador) VAL=0.45 RISE=2 TARG v(out_oscilador) VAL=0.45 RISE=3
+    MEAS TRAN tempo_alto TRIG v(out_oscilador) VAL=0.45 RISE=2 TARG v(out_oscilador) VAL=0.45 FALL=3
+    MEAS TRAN tempo_baixo TRIG v(out_oscilador) VAL=0.45 FALL=3 TARG v(out_oscilador) VAL=0.45 RISE=3
+    MEAS TRAN trise TRIG v(out_oscilador) VAL=0.18 RISE=2 TARG v(out_oscilador) VAL=0.72 RISE=2
+    MEAS TRAN tfall TRIG v(out_oscilador) VAL=0.72 FALL=2 TARG v(out_oscilador) VAL=0.18 FALL=2
+.endc
+.end

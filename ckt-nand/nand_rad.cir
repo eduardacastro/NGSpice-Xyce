@@ -13,10 +13,7 @@ vin2 in2 0 PULSE (0 0.9 0 0.1n 0.1n 10n 20n)
 
 
 .SUBCKT NAND A B out vdd gnd
-iradp1 vdd out dc rad
-iradp2 vdd out dc rad
-iradn1 out dnmos dc rad
-iradn2 dnmos gnd dc rad
+
 *<drain gate source drain>
 MP1 out A vdd vdd PMOS_32HP L=32n W=150n
 MP2 out B vdd vdd PMOS_32HP L=32n W=150n

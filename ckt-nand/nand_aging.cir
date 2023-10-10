@@ -6,16 +6,16 @@
 
 .include 32HP.mod
 * Declaração das fontes
-vdd vdd 0 dc 1.8
+vdd vdd 0 dc 0.9
 
-vin1 in1 0 PULSE (0 1.8 0 0.1n 0.1n 5n 10n)
-vin2 in2 0 PULSE (0 1.8 0 0.1n 0.1n 10n 20n)
+vin1 in1 0 PULSE (0 0.9 0 0.1n 0.1n 5n 10n)
+vin2 in2 0 PULSE (0 0.9 3n 0.1n 0.1n 10n 20n)
 
 ; Adicione uma fonte de tensão após in1
-vfontep1 in1 vfontep1 dc -0.01
-vfontep2 in2 vfontep2 dc -0.01
-vfonten1 in1 vfonten1 dc 0.01
-vfonten2 in2 vfonten2 dc 0.01
+vfontep1 in1 vfontep1 dc -0.1
+vfontep2 in2 vfontep2 dc -0.1
+vfonten1 in1 vfonten1 dc 0.1
+vfonten2 in2 vfonten2 dc 0.1
 * Circuito da porta NAND
 *<drain> <gate> <source> <bulk>
 ** portas em paralelo
@@ -45,12 +45,10 @@ run
  set color0=white
     set xbrushwidth=3
 * saida lógica
-spec 0 1K 100 3
 *plot v(out) v(in1) v(in2)
-plot v(in1) v(in2)
-plot v(out)
-fft v(out)
-plot mag(v(out))
+plot v(in1) v(in2)+1 v(out)+2
+
+meas tran tp_lh_a_b1 trig v(in1) val=0.45 rise=2 targ v(out) val=0.45 fall=2
 
 .endc
 .end
