@@ -13,16 +13,19 @@
 
 
 vsource source 0 dc 0
-*vdreno dreno 0 dc 0.9
+vdreno dreno 0 dc 0.9
 vgate gate 0 dc 0.9
 vbulk0 bulk0 0 dc 0
 vbulk1n bulk1n 0 dc 0
 
 itid0 source bulk0 0
-itid1n source bulk1n 1m
+itid10 source bulk10 1n
 
 vdreno0 dreno0 0 dc 0.9
-vdreno1n dreno1n 0 dc 0.9
+vdreno10 dreno10 0 dc 0.9
+vdreno20 dreno20 0 dc 0.9
+vdreno40 dreno40 0 dc 0.9
+vdreno80 dreno80 0 dc 0.9
 
 MN1 dreno0 gate source bulk0 NMOS_32HP L=32n W=250n
 MN2 dreno1n gate source bulk1n NMOS_32HP L=32n W=250n
@@ -45,7 +48,7 @@ run
 
     set color0=gray
     set xbrushwidth=3
-    plot i(vdreno0) i(vdreno1n)
+    plot i(vdreno) i(vdreno)
     *plot i(vdreno0) i(vdrenop)
     *plot v(out_inv2) 
     *plot v(out_inv2) v(enable)
