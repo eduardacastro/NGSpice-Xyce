@@ -15,21 +15,61 @@
 vsource source 0 dc 0
 vdreno dreno 0 dc 0.9
 vgate gate 0 dc 0.9
+
+***********************
 vbulk0 bulk0 0 dc 0
+
+vbulk1p bulk1p 0 dc 0
+vbulk10p bulk10p 0 dc 0
+vbulk100p bulk100p 0 dc 0
+
 vbulk1n bulk1n 0 dc 0
+vbulk10n bulk10n 0 dc 0
+vbulk100n bulk100n 0 dc 0
 
-itid0 source bulk0 0
-itid10 source bulk10 1n
+vbulk1u bulk1u 0 dc 0
+vbulk10u bulk10u 0 dc 0
 
+***********************
 vdreno0 dreno0 0 dc 0.9
-vdreno10 dreno10 0 dc 0.9
-vdreno20 dreno20 0 dc 0.9
-vdreno40 dreno40 0 dc 0.9
-vdreno80 dreno80 0 dc 0.9
+vdreno1p dreno1p 0 dc 0.9
+vdreno10p dreno10p 0 dc 0.9
+vdreno100p dreno100p 0 dc 0.9
+
+vdreno1n dreno1n 0 dc 0.9
+vdreno10n dreno10n 0 dc 0.9
+vdreno100n dreno100n 0 dc 0.9
+
+vdreno1u dreno1u 0 dc 0.9
+vdreno10u dreno10u 0 dc 0.9
+
+************************
+
+itid0 dreno0 bulk0 0
+itid1p dreno1p bulk1p 1p
+itid10p dreno10p bulk10p 10p
+itid100p dreno100p bulk100p 100p
+
+itid1n dreno1n bulk1n 1n
+itid10n dreno10n bulk10n 10n
+itid100n dreno100n bulk100n 100n
+
+itid1u dreno1u bulk1u 1u
+itid10u dreno10u bulk10u 10u
 
 MN1 dreno0 gate source bulk0 NMOS_32HP L=32n W=250n
-MN2 dreno1n gate source bulk1n NMOS_32HP L=32n W=250n
+MN2 dreno1p gate source bulk1p NMOS_32HP L=32n W=250n
+MN3 dreno10p gate source bulk10p NMOS_32HP L=32n W=250n
+MN4 dreno100p gate source bulk100p NMOS_32HP L=32n W=250n
 
+
+MN5 dreno1n gate source bulk1n NMOS_32HP L=32n W=250n
+MN6 dreno10n gate source bulk10n NMOS_32HP L=32n W=250n
+MN7 dreno100n gate source bulk100n NMOS_32HP L=32n W=250n
+*MN2 dreno1n gate source bulk1n NMOS_32HP L=32n W=250n
+
+MN8 dreno1u gate source bulk1u NMOS_32HP L=32n W=250n
+MN9 dreno10u gate source bulk10u NMOS_32HP L=32n W=250n
 
 
 
@@ -48,7 +88,7 @@ run
 
     set color0=gray
     set xbrushwidth=3
-    plot i(vdreno) i(vdreno)
+    plot i(vdreno0) i(vdreno1p)  i(vdreno10p)  i(vdreno100p) i(vdreno1n)  i(vdreno10n)  i(vdreno100n)
     *plot i(vdreno0) i(vdrenop)
     *plot v(out_inv2) 
     *plot v(out_inv2) v(enable)
