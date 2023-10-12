@@ -10,7 +10,7 @@
 * Declarando parametros que serão utilizados nas simulações
 .param Wn = 100n
 .param Wp = 200n
-.param rad = 1u
+.param rad = 10u
 
 
 * Declaração das fontes
@@ -30,11 +30,11 @@ iradp1 vdd out dc rad
 iradp2 vdd out dc rad
 iradn1 out dnmos dc rad
 iradn2 dnmos gnd dc rad
-
-MP1 out A vdd vdd PMOS_32HP L=32n W=150n
-MP2 out B vdd vdd PMOS_32HP L=32n W=150n
-MN1 out A dnmos gnd NMOS_32HP L=32n W=250n
-MN2 dnmos B gnd gnd NMOS_32HP L=32n W=250n
+*<drain gate source drain>
+MP1 out A vdd vdd PMOS_32HP L=32n W=Wp
+MP2 out B vdd vdd PMOS_32HP L=32n W=Wp
+MN1 out A dnmos gnd NMOS_32HP L=32n W=Wn
+MN2 dnmos B gnd gnd NMOS_32HP L=32n W=Wn
 .ends NAND
 
 * Xnand A B out vdd gnd NAND
