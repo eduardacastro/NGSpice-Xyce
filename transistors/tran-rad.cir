@@ -88,7 +88,7 @@ run
 
     set color0=gray
     set xbrushwidth=3
-    plot i(vdreno0) i(vdreno1p)  i(vdreno10p)  i(vdreno100p) i(vdreno1n)  i(vdreno10n)  i(vdreno100n)
+    plot i(vdreno0) i(vdreno1p)  i(vdreno10p)  i(vdreno100p) i(vdreno1n)  i(vdreno10n)  i(vdreno100n) i(vdreno1u)  i(vdreno10u) 
     *plot i(vdreno0) i(vdrenop)
     *plot v(out_inv2) 
     *plot v(out_inv2) v(enable)

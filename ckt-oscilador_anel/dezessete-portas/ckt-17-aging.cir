@@ -10,8 +10,8 @@
 * Declarando parametros que serão utilizados nas simulações
 .param Wn = 100n
 .param Wp = 200n
-.param agingp = -0.16
-.param agingn = 0.16
+.param agingp = -0
+.param agingn = 0
 
 .SUBCKT inv_32hp in out vdd gnd
 vagingp in inp dc agingp

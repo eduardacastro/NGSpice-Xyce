@@ -1,0 +1,42 @@
+* Definindo a temperatura de operação
+.TEMP 25
+
+* Declarando parametros que serão utilizados nas simulações
+
+.include 32HP.mod
+* Declaração das fontes
+vdd vdd 0 dc 0.9
+
+*vin1 in1 0 PULSE (0 0.9 0 0.1n 0.1n 5n 10n)
+*vin2 in2 0 PULSE (0 0.9 0 0.1n 0.1n 10n 20n)
+
+vin1 in1 0 PULSE (0 0.9 100p 10p 10p 200p 10n)
+
+
+MP1 out in1 vdd vdd PMOS_32HP L=32n W=150n
+MN1 out in1 0 0 NMOS_32HP L=32n W=100n
+
+vaux out aux 0
+iexp 0 aux exp(0 159u 200p 2p 215p 4p)
+iexp2 aux 0 exp(0 185u 400p 2p 415p 4p)
+
+.tran 0.1p 600p
+***********************
+* parametros de simulação
+
+.control
+
+run
+plot v(out) v(in1)+1
+plot i(vdd)
+meas tran tp_hl_in1 trig v(in1) val=0.45 rise=1 targ v(out) val=0.45 fall=1
+meas tran tp_lh_in1 trig v(in1) val=0.45 fall=1 targ v(out) val=0.45 rise=2
+meas tran tp_fall_in1 trig v(out) val=0.72 fall=1 targ v(out) val=0.18 fall=1
+meas tran tp_rise_in1 trig v(out) val=0.18 rise=2 targ v(out) val=0.72 rise=2
+meas tran i_descarga_in1 INTEG i(vdd) FROM=90p TO=150p
+meas tran i_carga_in1 INTEG i(vdd) FROM=190p TO=250p
+meas tran i_SET_010_in1_1 INTEG i(vaux) FROM=200p TO=250p
+meas tran i_SET_101_in1_0 INTEG i(vaux) FROM=400p TO=450p
+
+.endc
+.end

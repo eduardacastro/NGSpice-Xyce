@@ -11,8 +11,6 @@
 .param Wn = 100n
 .param Wp = 200n
 .param rad = 10u
-
-
 * Declaração das fontes
 vdd source 0 dc 0.9
 venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
@@ -20,7 +18,6 @@ venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
 .SUBCKT inv_32hp in out vdd gnd
 iradp1 vdd out dc rad
 iradn1 out gnd dc rad
-
 MP_hp1 vdd in out vdd     PMOS_32HP L=32n W=Wp
 MN_hp1 gnd in out gnd     NMOS_32HP L=32n W=Wn
 .ends inv_32hp
@@ -30,12 +27,13 @@ iradp1 vdd out dc rad
 iradp2 vdd out dc rad
 iradn1 out dnmos dc rad
 iradn2 dnmos gnd dc rad
-
-MP1 out A vdd vdd PMOS_32HP L=32n W=150n
-MP2 out B vdd vdd PMOS_32HP L=32n W=150n
-MN1 out A dnmos gnd NMOS_32HP L=32n W=250n
-MN2 dnmos B gnd gnd NMOS_32HP L=32n W=250n
+*<drain gate source drain>
+MP1 out A vdd vdd PMOS_32HP L=32n W=Wp
+MP2 out B vdd vdd PMOS_32HP L=32n W=Wp
+MN1 out A dnmos gnd NMOS_32HP L=32n W=Wn
+MN2 dnmos B gnd gnd NMOS_32HP L=32n W=Wn
 .ends NAND
+
 
 * Xnand A B out vdd gnd NAND
 Xnand enable out_oscilador out_nand source 0 NAND
@@ -59,12 +57,8 @@ Xinv14 out_inv13 out_inv14 source 0 inv_32hp
 Xinv15 out_inv14 out_inv15 source 0 inv_32hp
 Xinv16 out_inv15 out_oscilador source 0 inv_32hp
 
-*vaux out_inv2 aux 0
-*iexp 0 aux exp(0 150u 0.88n 2p 0.895n 4p)
-*iexp2 aux 0 exp(0 220u 0.21n 2p 0.225n 4p)
-* Declarando o tipo de simulação 
 
-.tran 0.1p 1.5n
+.tran 0.005n 2n
 *******************************************************************
 
 .control
@@ -79,10 +73,9 @@ run
 
     *plot i(vaux)
     *plot v(out_inv2) 
-   * plot v(out_inv2) v(out_inv3)+1
-    *plot v(out_inv2) v(out_inv3)+1 v(out_inv4)+2 v(out_inv5)+3 v(out_inv1)+4 
- 
-   * plot v(out_inv2) v(out_inv1)
+    plot v(out_inv2) v(out_inv3)+1 v(out_inv4)+2 v(out_inv5)+3 v(out_inv1)+4 
+    
+    *plot v(out_inv2) v(out_inv1)
     MEAS TRAN periodo TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 RISE=3
     MEAS TRAN tempo_alto TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 FALL=3
     MEAS TRAN tempo_baixo TRIG v(out_inv2) VAL=0.45 FALL=3 TARG v(out_inv2) VAL=0.45 RISE=3

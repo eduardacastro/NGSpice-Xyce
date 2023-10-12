@@ -38,10 +38,10 @@ MN2 dnmos in2 0 0 NMOS_32HP L=32n W=100n
 run
 
 * saida lógica
-spec 0 1K 100 3
+*spec 0 1K 100 3
 plot v(out) v(in1) v(in2)
-fft v(out)
-plot mag(v(out))
+*fft v(out)
+*plot mag(v(out))
 
 .endc
 .end
