@@ -11,8 +11,8 @@
 .param Wn = 100n
 .param Wp = 200n
 .param rad = 10u
-.param agingp = -0.0
-.param agingn = 0.0
+.param agingp = -0.16
+.param agingn = 0.16
 
 .SUBCKT inv_32hp in out vdd gnd
 iradp1 vdd out dc rad

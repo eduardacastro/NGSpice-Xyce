@@ -10,7 +10,7 @@
 * Declarando parametros que serão utilizados nas simulações
 .param Wn = 100n
 .param Wp = 200n
-.param rad = 0
+.param rad = 10u
 
 
 
