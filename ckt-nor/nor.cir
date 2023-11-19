@@ -2,7 +2,8 @@
 .TEMP 25
 
 * Declarando parametros que serão utilizados nas simulações
-
+.param agingp = -0.01
+.param agingn = 0.01
 .include 32HP.mod
 * Declaração das fontes
 vdd vdd 0 dc 0.9
@@ -13,12 +14,16 @@ vdd vdd 0 dc 0.9
 vin1 in1 0 PULSE (0 0.9 300p 10p 10p 100p 10n)
 vin2 in2 0 PULSE (0 0.9 100p 10p 10p 100p 20n)
 
+Vagingp1 in1 inp1 dc agingp
+Vagingn1 in1 inn1 dc agingn
+Vagingp2 in2 inp2 dc agingp
+Vagingn2 in2 inn2 dc agingn
 
+MP1 out inp1 vpmos vdd PMOS_32HP L=32n W=150n
+MP2 vpmos inp2 vdd vdd PMOS_32HP L=32n W=150n
+MN1 out inn1 0 0 NMOS_32HP L=32n W=250n
+MN2 out inn2 0 0 NMOS_32HP L=32n W=250n
 
-MP1 out in1 vpmos vdd PMOS_32HP L=32n W=100n
-MP2 out in2 vpmos vdd PMOS_32HP L=32n W=100n
-MN1 out in1 dnmos 0 NMOS_32HP L=32n W=100n
-MN2 dnmos in2 0 0 NMOS_32HP L=32n W=100n
 
 
 .tran 0.1p 500p
@@ -28,6 +33,8 @@ MN2 dnmos in2 0 0 NMOS_32HP L=32n W=100n
 .control
 
 run
+ set color0=white
+    set xbrushwidth=3
 plot v(out) v(in1)+1 v(in2)
 meas tran tp_hl_in2_in1_0 trig v(in2) val=0.45 rise=1 targ v(out) val=0.45 fall=1
 meas tran tp_lh_in2_in1_0 trig v(in2) val=0.45 fall=1 targ v(out) val=0.45 rise=1
@@ -35,8 +42,8 @@ meas tran tp_hl_in1_in2_0 trig v(in1) val=0.45 rise=1 targ v(out) val=0.45 fall=
 meas tran tp_lh_in1_in2_0 trig v(in1) val=0.45 fall=1 targ v(out) val=0.45 rise=2
 meas tran tp_fall_in2_in1_0 trig v(out) val=0.72 fall=1 targ v(out) val=0.18 fall=1
 meas tran tp_rise_in2_in1_0 trig v(out) val=0.18 rise=1 targ v(out) val=0.72 rise=1
-meas tran tp_fall_in2_in1_0 trig v(out) val=0.72 fall=2 targ v(out) val=0.18 fall=2
-meas tran tp_rise_in2_in1_0 trig v(out) val=0.18 rise=2 targ v(out) val=0.72 rise=2
+meas tran tp_fall_in1_in2_0 trig v(out) val=0.72 fall=2 targ v(out) val=0.18 fall=2
+meas tran tp_rise_in1_in2_0 trig v(out) val=0.18 rise=2 targ v(out) val=0.72 rise=2
 
 .endc
 .end

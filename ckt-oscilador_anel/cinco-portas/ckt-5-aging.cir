@@ -51,6 +51,8 @@ Xinv3 out_inv2 out_inv3 source 0 inv_32hp
 Xinv4 out_inv3 out_oscilador source 0 inv_32hp
 
 
+
+
 * Declarando o tipo de simulação 
 
 .tran 0.005n 2n
