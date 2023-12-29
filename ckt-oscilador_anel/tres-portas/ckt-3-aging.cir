@@ -1,4 +1,4 @@
-* cd ../../NGSpice/ckt-oscilador_anel/sete-portas
+* cd ../../NGSpice/ckt-oscilador_anel/tres-portas
 * Definindo a temperatura de operação
 .TEMP 25
 
@@ -10,8 +10,8 @@
 * Declarando parametros que serão utilizados nas simulações
 .param Wn = 100n
 .param Wp = 200n
-.param agingp = -0.16
-.param agingn = 0.16
+.param agingp = -0.0
+.param agingn = 0.0
 
 .SUBCKT inv_32hp in out vdd gnd
 
@@ -25,6 +25,7 @@ MN_hp1 gnd inn out gnd     NMOS_32HP L=32n W=Wn
 * Declaração das fontes
 vdd source 0 dc 0.9
 venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
+*venable enable 0 PWL(0 0 300p 10p 10p 300p 600p) r=-1
 *vclock 7 5 PWL(0 1 20ns 0) r=-1
 
 .SUBCKT NAND A B out vdd gnd
@@ -47,10 +48,18 @@ Xnand enable out_oscilador out_nand source 0 NAND
 Xinv1 out_nand out_inv1 source 0 inv_32hp
 Xinv2 out_inv1 out_oscilador source 0 inv_32hp
 
+vaux out_oscilador aux 0
+* sinal positivo
+iexp 0 aux exp(0 110u 750p 2p 765p 4p)
+*sinal negativo
+iexp2 aux 0 exp(0 105u 450p 2p 465p 4p)
+* Declarando o tipo de simulação 
+
 
 * Declarando o tipo de simulação 
 
-.tran 0.005n 2n
+.tran 0.005n 200p
+*.tran 0.1p 100p
 *******************************************************************
 
 .control
@@ -65,13 +74,12 @@ run
 
     *plot i(vaux)
     *plot v(out_inv2) 
-    *plot v(out_inv2) v(out_inv3)
+    plot v(out_inv1) v(out_nand) v(out_oscilador)
     
-    *plot v(out_inv2) v(out_inv1)
-    MEAS TRAN periodo TRIG v(out_oscilador) VAL=0.45 RISE=2 TARG v(out_oscilador) VAL=0.45 RISE=3
-    MEAS TRAN tempo_alto TRIG v(out_oscilador) VAL=0.45 RISE=2 TARG v(out_oscilador) VAL=0.45 FALL=3
-    MEAS TRAN tempo_baixo TRIG v(out_oscilador) VAL=0.45 FALL=3 TARG v(out_oscilador) VAL=0.45 RISE=3
-    MEAS TRAN trise TRIG v(out_oscilador) VAL=0.18 RISE=2 TARG v(out_oscilador) VAL=0.72 RISE=2
-    MEAS TRAN tfall TRIG v(out_oscilador) VAL=0.72 FALL=2 TARG v(out_oscilador) VAL=0.18 FALL=2
+    *MEAS TRAN periodo TRIG v(out_oscilador) VAL=0.45 RISE=2 TARG v(out_oscilador) VAL=0.45 RISE=3
+    *MEAS TRAN tempo_alto TRIG v(out_oscilador) VAL=0.45 RISE=2 TARG v(out_oscilador) VAL=0.45 FALL=3
+    *MEAS TRAN tempo_baixo TRIG v(out_oscilador) VAL=0.45 FALL=3 TARG v(out_oscilador) VAL=0.45 RISE=3
+    *MEAS TRAN trise TRIG v(out_oscilador) VAL=0.18 RISE=2 TARG v(out_oscilador) VAL=0.72 RISE=2
+    *MEAS TRAN tfall TRIG v(out_oscilador) VAL=0.72 FALL=2 TARG v(out_oscilador) VAL=0.18 FALL=2
 .endc
 .end
