@@ -10,8 +10,8 @@
 * Declarando parametros que serão utilizados nas simulações
 .param Wn = 100n
 .param Wp = 200n
-.param agingp = -0.01
-.param agingn = 0.01
+.param agingp = -0.16
+.param agingn = 0.16
 
 .SUBCKT inv_32hp in out vdd gnd
 vagingp in inp dc agingp
@@ -56,6 +56,12 @@ Xinv10 out_inv9 out_inv10 source 0 inv_32hp
 Xinv11 out_inv10 out_inv11 source 0 inv_32hp
 Xinv12 out_inv11 out_oscilador source 0 inv_32hp
 
+vaux out_inv2 aux 0
+* alto
+*iexp 0 aux exp(0 158u 0.8n 2p 0.815n 4p)
+*baixo
+*iexp2 aux 0 exp(0 160u 0.45n 2p 0.465n 4p)
+* Declarando o tipo d simulação 
 
 * Declarando o tipo de simulação 
 
@@ -74,6 +80,8 @@ run
 
     *plot v(out_inv2) 
     *plot v(out_inv2) v(enable)
+    plot v(out_inv2) v(out_inv3)+1 v(out_inv4)+2 v(out_inv5)+3 v(out_inv1)+4 
+
     MEAS TRAN periodo TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 RISE=3
     MEAS TRAN tempo_alto TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 FALL=3
     MEAS TRAN tempo_baixo TRIG v(out_inv2) VAL=0.45 FALL=3 TARG v(out_inv2) VAL=0.45 RISE=3

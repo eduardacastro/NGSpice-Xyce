@@ -1,0 +1,55 @@
+* cd ../../NGSpice/ckt-nand
+* Definindo a temperatura de operação
+.TEMP 25
+
+* Declarando parametros que serão utilizados nas simulações
+.param rad = 100u
+.include 32HP.mod
+* Declaração das fontes
+vdd vdd 0 dc 0.9
+
+vin1 in1 0 PULSE (0 0.9 0 0.1n 0.1n 5n 10n)
+vin2 in2 0 PULSE (0 0.9 0 0.1n 0.1n 10n 20n)
+
+
+.SUBCKT NAND A B out vdd gnd
+
+*<drain gate source drain>
+MP1 out A vdd vdd PMOS_32HP L=32n W=150n
+MP2 out B vdd vdd PMOS_32HP L=32n W=150n
+MN1 out A dnmos gnd NMOS_32HP L=32n W=250n
+MN2 dnmos B gnd gnd NMOS_32HP L=32n W=250n
+.ends NAND
+
+
+* Xnand A B out vdd gnd NAND
+Xnand in1 in2 out vdd 0 NAND
+
+
+** portas em série
+*MN1 midsaida in1 mid mid NMOS_32HP L=32n W=100n
+*MN2 mid in2 out out NMOS_32HP L=32n W=100n
+
+
+* Declarando o tipo de simulação 
+*.dc vin1 0 1.8 0.01
+*.dc vin2 0 1.8 0.01 vin1 0 1.8 0.01
+.tran 1n 50n
+***********************
+* parametros de simulação
+
+.control
+
+run
+ set color0=white
+    set xbrushwidth=3
+* saida lógica
+spec 0 1K 100 3
+*plot v(out) v(in1) v(in2)
+plot v(in1) v(in2)
+plot v(out)
+fft v(out)
+plot mag(v(out))
+
+.endc
+.end

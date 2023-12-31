@@ -11,8 +11,8 @@
 .param Wn = 100n
 .param Wp = 200n
 .param rad = 1p
-.param agingp = -0.01
-.param agingn = 0.01
+.param agingp = -0.02
+.param agingn = 0.02
 * Declaração das fontes
 vdd source 0 dc 0.9
 venable enable 0 PWL(0 0 0.1n 0 0.11n 0.9) r=-1
@@ -32,8 +32,8 @@ iradp2 vdd out dc rad
 iradn1 out dnmos dc rad
 iradn2 dnmos gnd dc rad
 Vagingp1 A inp1 dc agingp
-Vagingn1 A inn1 dc agingn
 Vagingp2 B inp2 dc agingp
+Vagingn1 A inn1 dc agingn
 Vagingn2 B inn2 dc agingn
 *<drain gate source drain>
 MP1 out inp1 vdd vdd PMOS_32HP L=32n W=Wp
@@ -65,9 +65,11 @@ Xinv14 out_inv13 out_inv14 source 0 inv_32hp
 Xinv15 out_inv14 out_inv15 source 0 inv_32hp
 Xinv16 out_inv15 out_oscilador source 0 inv_32hp
 
-vaux out_inv2 aux 0
-iexp 0 aux exp(0 160u 1n 2p 1.015n 4p)
-iexp2 aux 0 exp(0 230u 0.23n 2p 0.245n 4p)
+*vaux out_inv2 aux 0
+* alto
+*iexp 0 aux exp(0 163u 1.2n 2p 1.215n 4p)
+*baixo
+*iexp2 aux 0 exp(0 162u 0.3n 2p 0.315n 4p)
 * Declarando o tipo de simulação 
 
 .tran 0.005n 2n
@@ -87,7 +89,7 @@ run
     *plot v(out_inv2) 
     plot v(out_inv2) v(out_inv3)+1 v(out_inv4)+2 v(out_inv5)+3 v(out_inv1)+4 
     
-    plot v(out_inv2) v(out_inv1)
+    *plot v(out_inv2) v(out_inv1)
     MEAS TRAN periodo TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 RISE=3
     MEAS TRAN tempo_alto TRIG v(out_inv2) VAL=0.45 RISE=2 TARG v(out_inv2) VAL=0.45 FALL=3
     MEAS TRAN tempo_baixo TRIG v(out_inv2) VAL=0.45 FALL=3 TARG v(out_inv2) VAL=0.45 RISE=3

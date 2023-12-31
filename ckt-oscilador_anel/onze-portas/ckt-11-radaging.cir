@@ -11,8 +11,8 @@
 .param Wn = 100n
 .param Wp = 200n
 .param rad = 10u
-.param agingp = -0.02
-.param agingn = 0.02
+.param agingp = -0.16
+.param agingn = 0.16
 
 * Declaração das fontes
 vdd source 0 dc 0.9

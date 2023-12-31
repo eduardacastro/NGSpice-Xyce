@@ -1,0 +1,76 @@
+* Definindo a temperatura de operação
+.TEMP 25
+
+* Declarando parametros que serão utilizados nas simulações
+.param agingp = -0.16
+.param agingn = 0.16
+.param Wn = 100n
+.param Wp = 200n
+.param WnInv = 400n
+.param WpInv = 800n
+.include 32HP.mod
+* Declaração das fontes
+vdd vdd 0 dc 0.9
+
+* Usar com o SET
+vin2 in2 0 PULSE (0 0.9 600p 10p 10p 600p 600p)
+vin1 in1 0 PULSE (0 0.9 250p 10p 10p 2000p 4000p)
+
+
+* Usar para pegar os parametros de delay
+*vin1 in1 0 PULSE (0 0.9 300p 10p 10p 100p 10n)
+*vin2 in2 0 PULSE (0 0.9 100p 10p 10p 100p 20n)
+
+Vagingp1 in1 inp1 dc agingp
+Vagingn1 in1 inn1 dc agingn
+Vagingp2 in2 inp2 dc agingp
+Vagingn2 in2 inn2 dc agingn
+
+MP1 out inp1 vpmos vdd PMOS_32HP L=32n W=Wp
+MP2 vpmos inp2 vdd vdd PMOS_32HP L=32n W=Wp
+MN1 out inn1 0 0 NMOS_32HP L=32n W=Wn
+MN2 out inn2 0 0 NMOS_32HP L=32n W=Wn
+
+
+*LOAD INV (FoF - Fanout of Four - emula 4 Invs usando sizing)
+MPload outload out vdd vdd PMOS_32HP L=32n W=WpInv
+MNload outload out 0 0 NMOS_32HP L=32n W=WnInv
+
+MPloade1 outload1 outload vdd vdd PMOS_32HP L=32n W=WpInv
+MNloade1 outload1 outload 0 0 NMOS_32HP L=32n W=WnInv
+
+MPloade2 outload2 outload1 vdd vdd PMOS_32HP L=32n W=WpInv
+MNloade2 outload2 outload1 0 0 NMOS_32HP L=32n W=WnInv
+
+
+vaux out aux 0
+*sinal positivo
+iexp2 0 aux exp(0 145u 350p 2p 365p 4p)
+* sinal negativo
+iexp aux 0 exp(0 100u 100p 2p 115p 4p)
+* Declarando o tipo de simulação 
+
+
+.tran 0.1p 500p
+***********************
+* parametros de simulação
+
+.control
+
+run
+ set color0=gray
+    set xbrushwidth=3
+*plot v(out) v(in1)+1 v(in2)
+plot v(outload2)-3 v(outload1)-2 v(outload)-1 v(out) v(in1)+1 v(in2)+2 
+
+meas tran tp_hl_in2_in1_0 trig v(in2) val=0.45 rise=1 targ v(out) val=0.45 fall=1
+meas tran tp_lh_in2_in1_0 trig v(in2) val=0.45 fall=1 targ v(out) val=0.45 rise=1
+meas tran tp_hl_in1_in2_0 trig v(in1) val=0.45 rise=1 targ v(out) val=0.45 fall=2
+meas tran tp_lh_in1_in2_0 trig v(in1) val=0.45 fall=1 targ v(out) val=0.45 rise=2
+meas tran tp_fall_in2_in1_0 trig v(out) val=0.72 fall=1 targ v(out) val=0.18 fall=1
+meas tran tp_rise_in2_in1_0 trig v(out) val=0.18 rise=1 targ v(out) val=0.72 rise=1
+meas tran tp_fall_in1_in2_0 trig v(out) val=0.72 fall=2 targ v(out) val=0.18 fall=2
+meas tran tp_rise_in1_in2_0 trig v(out) val=0.18 rise=2 targ v(out) val=0.72 rise=2
+
+.endc
+.end
