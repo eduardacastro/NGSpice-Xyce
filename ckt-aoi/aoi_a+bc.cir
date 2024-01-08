@@ -3,12 +3,12 @@
 .TEMP 25
 
 * Declarando parametros que serão utilizados nas simulações
-.param agingp = -0.0
-.param agingn = 0.0
+.param agingp = -0.01
+.param agingn = 0.01
 .param Wn = 100n
 .param Wp = 200n
-*.param WnInv = 400n
-*.param WpInv = 800n
+.param WnInv = 100n
+.param WpInv = 200n
 .include 32HP.mod
 * Declaração das fontes
 vdd vdd 0 dc 0.9
@@ -42,20 +42,20 @@ MN2 out inn2 dnmos dnmos NMOS_32HP L=32n W=Wn
 MN3 dnmos inn3 0 0 NMOS_32HP L=32n W=Wn
 
 *LOAD INV (FoF - Fanout of Four - emula 4 Invs usando sizing)
-*MPload outload out vdd vdd PMOS_32HP L=32n W=WpInv
-*MNload outload out 0 0 NMOS_32HP L=32n W=WnInv
+MPload outload out vdd vdd PMOS_32HP L=32n W=WpInv
+MNload outload out 0 0 NMOS_32HP L=32n W=WnInv
 
-*MPloade1 outload1 outload vdd vdd PMOS_32HP L=32n W=WpInv
-*MNloade1 outload1 outload 0 0 NMOS_32HP L=32n W=WnInv
+MPloade1 outload1 outload vdd vdd PMOS_32HP L=32n W=WpInv
+MNloade1 outload1 outload 0 0 NMOS_32HP L=32n W=WnInv
 
-*MPloade2 outload2 outload1 vdd vdd PMOS_32HP L=32n W=WpInv
-*MNloade2 outload2 outload1 0 0 NMOS_32HP L=32n W=WnInv
+MPloade2 outload2 outload1 vdd vdd PMOS_32HP L=32n W=WpInv
+MNloade2 outload2 outload1 0 0 NMOS_32HP L=32n W=WnInv
 
-*vaux out aux 0
+vaux out aux 0
 * sinal positivo
-*iexp 0 aux exp(0 110u 750p 2p 765p 4p)
+iexp 0 aux exp(0 90u 750p 2p 765p 4p)
 *sinal negativo0
-*iexp2 aux 0 exp(0 105u 450p 2p 465p 4p)
+iexp2 aux 0 exp(0 90u 450p 2p 465p 4p)
 * Declarando o tipo de simulação 
 
 
@@ -69,7 +69,7 @@ MN3 dnmos inn3 0 0 NMOS_32HP L=32n W=Wn
 run
   set color0=gray
   set xbrushwidth=3
-*plot v(outload2)-3 v(outload1)-2 v(outload)-1 v(out) v(in1)+1 v(in2)+2 v(in3)+3 
+plot v(outload2)-3 v(outload1)-2 v(outload)-1 v(out) v(in1)+1 v(in2)+2 v(in3)+3 
 *plot i(vaux)
 *Variando Inv2
 meas tran tp_hl_in2_in1_0 trig v(in3) val=0.45 rise=2 targ v(out) val=0.45 fall=2
@@ -78,7 +78,7 @@ meas tran tp_fall_in2_in1_0 trig v(out) val=0.72 fall=2 targ v(out) val=0.18 fal
 meas tran tp_rise_in2_in1_0 trig v(out) val=0.18 rise=1 targ v(out) val=0.72 rise=1
 
 *Variando Inv1
-plot v(out) v(in1)+1 v(in2)+2 v(in3)+3 
+*plot v(out) v(in1)+1 v(in2)+2 v(in3)+3 
 *meas tran tp_hl_in1_in2_0 trig v(in1) val=0.45 rise=2 targ v(out) val=0.45 fall=2
 *meas tran tp_lh_in1_in2_0 trig v(in1) val=0.45 fall=1 targ v(out) val=0.45 rise=1
 *meas tran tp_fall_in1_in2_0 trig v(out) val=0.72 fall=2 targ v(out) val=0.18 fall=2

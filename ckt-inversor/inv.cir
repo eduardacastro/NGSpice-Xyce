@@ -30,8 +30,10 @@ MPloade2 outload2 outload1 vdd vdd PMOS_32HP L=32n W=800n
 MNloade2 outload2 outload1 0 0 NMOS_32HP L=32n W=400n
 
 vaux out aux 0
-iexp 0 aux exp(0 140u 150p 2p 165p 4p)
-iexp2 aux 0 exp(0 150u 300p 2p 315p 4p)
+* Positivo
+iexp 0 aux exp(0 145u 150p 2p 165p 4p)
+* Negativo
+iexp2 aux 0 exp(0 155u 300p 2p 315p 4p)
 
 *vaux out aux 0
 *iexp 0 aux exp(0 200u 150p 2p 165p 4p)

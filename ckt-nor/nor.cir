@@ -1,13 +1,14 @@
+*  cd ../../NGSpice/ckt-nor
 * Definindo a temperatura de operação
 .TEMP 25
 
 * Declarando parametros que serão utilizados nas simulações
-.param agingp = -0.16
-.param agingn = 0.16
+.param agingp = -0.0
+.param agingn = 0.0
 .param Wn = 100n
 .param Wp = 200n
-.param WnInv = 400n
-.param WpInv = 800n
+.param WnInv = 100n
+.param WpInv = 200n
 .include 32HP.mod
 * Declaração das fontes
 vdd vdd 0 dc 0.9
@@ -45,9 +46,9 @@ MNloade2 outload2 outload1 0 0 NMOS_32HP L=32n W=WnInv
 
 vaux out aux 0
 *sinal positivo
-iexp2 0 aux exp(0 145u 350p 2p 365p 4p)
+iexp2 0 aux exp(0 140u 350p 2p 365p 4p)
 * sinal negativo
-iexp aux 0 exp(0 100u 100p 2p 115p 4p)
+iexp aux 0 exp(0 90u 100p 2p 115p 4p)
 * Declarando o tipo de simulação 
 
 
