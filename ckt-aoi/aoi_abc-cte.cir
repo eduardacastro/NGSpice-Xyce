@@ -1,10 +1,10 @@
-*  cd ../../NGSpice/ckt-aoi
+*  cd ../../NGSpice/ckt-nand
 * Definindo a temperatura de operação
 .TEMP 25
 
 * Declarando parametros que serão utilizados nas simulações
-.param agingp = -0.0
-.param agingn = 0.0
+.param agingp = -0.16
+.param agingn = 0.16
 .param Wn = 100n
 .param Wp = 200n
 .param WnInv = 400n
@@ -13,10 +13,9 @@
 * Declaração das fontes
 vdd vdd 0 dc 0.9
 
-
 * Variando Inv1
 *vin1 in1 0 PULSE (0 0.9 300p 10p 10p 300p 600p)
-*vin2 in2 0 PULSE (0 0 0p 0p 0p 00p 1200p)
+*vin2 in2 0 PULSE (0 0.9 0p 10p 10p 600p 1200p)
 *vin3 in3 0 PULSE (0 0.9 0p 10p 10p 1200p 2400p)
 
 *Variando In2 e In3 usar esses 
@@ -26,18 +25,18 @@ vin3 in3 0 PULSE (0 0.9 0p 10p 10p 300p 600p)
 *vin2 in2 0 PULSE (0 0.9 0p 10p 10p 300p 600p)
 *vin3 in3 0 PULSE (0 0.9 0p 10p 10p 1200p 1200p)
 
-Vagingp1 in1 inp1 dc -0.0
-Vagingp2 in2 inp2 dc -0.0
-Vagingp3 in3 inp3 dc -0.0
 
-Vagingn1 in1 inn1 dc 0.0
-Vagingn2 in2 inn2 dc 0.0
-Vagingn3 in3 inn3 dc 0.0
+Vagingp1 in1 inp1 dc agingp
+Vagingn1 in1 inn1 dc agingn
+Vagingp2 in2 inp2 dc agingp
+Vagingn2 in2 inn2 dc agingn
+Vagingp3 in3 inp3 dc agingp
+Vagingn3 in3 inn3 dc agingn
 
 
-MP1 saida inp1 vdd vdd PMOS_32HP L=32n W=Wp
-MP3 out inp3 saida saida PMOS_32HP L=32n W=Wp
-MP2 out inp2 saida saida PMOS_32HP L=32n W=Wp
+MP1 out inp1 saida saida PMOS_32HP L=32n W=Wp
+MP3 saida inp3 vdd vdd PMOS_32HP L=32n W=Wp
+MP2 saida inp2 vdd vdd PMOS_32HP L=32n W=Wp
 
 
 MN1 out inn1 0 0 NMOS_32HP L=32n W=Wn
@@ -54,16 +53,25 @@ MN3 dnmos inn3 0 0 NMOS_32HP L=32n W=Wn
 *MPloade2 outload2 outload1 vdd vdd PMOS_32HP L=32n W=WpInv
 *MNloade2 outload2 outload1 0 0 NMOS_32HP L=32n W=WnInv
 
+*In 1
 *vaux out aux 0
-* sinal positivo
-*iexp 0 aux exp(0 110u 750p 2p 765p 4p)
-*sinal negativo0
-*iexp2 aux 0 exp(0 105u 450p 2p 465p 4p)
+* sinal negativo
+*iexp aux 0 exp(0 150u 750p 2p 765p 4p)
+*sinal positivo
+*iexp2 0 aux exp(0 175u 450p 2p 465p 4p)
 * Declarando o tipo de simulação 
 
 
-*.tran 0.1p 500p
+* In2 e In3
+* sinal positivo
+*iexp 0 aux exp(0 130u 750p 2p 765p 4p)
+*sinal negativo
+*iexp2 aux 0 exp(0 125u 450p 2p 465p 4p)
+
+
+
 .tran 0.1p 1000p
+*.tran 0.1p 4800p
 ***********************
 * parametros de simulação
 
@@ -72,9 +80,9 @@ MN3 dnmos inn3 0 0 NMOS_32HP L=32n W=Wn
 run
   set color0=gray
   set xbrushwidth=3
-plot v(out) v(in1)+1 v(in2)+2 v(in3)+3 
-*plot v(outload2)-3 v(outload1)-2 v(outload)-1 v(out) v(in1)+1 v(in2)+2 v(in3)+3 
+plot v(outload2)-3 v(outload1)-2 v(outload)-1 v(out) v(in1)+1 v(in2)+2 v(in3)+3 
 
+plot v(out) v(in1)+1 v(in2)+2 v(in3)+3 
 *plot i(vaux)
 *Variando Inv2
 meas tran tp_hl_in2_in1_0 trig v(in3) val=0.45 rise=2 targ v(out) val=0.45 fall=2
@@ -83,10 +91,9 @@ meas tran tp_fall_in2_in1_0 trig v(out) val=0.72 fall=2 targ v(out) val=0.18 fal
 meas tran tp_rise_in2_in1_0 trig v(out) val=0.18 rise=1 targ v(out) val=0.72 rise=1
 
 *Variando Inv1
-*plot v(out) v(in1)+1 v(in2)+2 v(in3)+3 
-*meas tran tp_hl_in1_in2_0 trig v(in1) val=0.45 rise=2 targ v(out) val=0.45 fall=2
+*meas tran tp_hl_in1_in2_0 trig v(in1) val=0.45 rise=1 targ v(out) val=0.45 fall=1
 *meas tran tp_lh_in1_in2_0 trig v(in1) val=0.45 fall=1 targ v(out) val=0.45 rise=1
-*meas tran tp_fall_in1_in2_0 trig v(out) val=0.72 fall=2 targ v(out) val=0.18 fall=2
+*meas tran tp_fall_in1_in2_0 trig v(out) val=0.72 fall=1 targ v(out) val=0.18 fall=1
 *meas tran tp_rise_in1_in2_0 trig v(out) val=0.18 rise=1 targ v(out) val=0.72 rise=1
 
 
