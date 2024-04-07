@@ -1,9 +1,9 @@
-*  cd ../../Users/Asus/Desktop/NGSpice/ckt-inversor
+*  cd ../../Users/Asus/Desktop/NGSpice/ckt-inversor/Xyce
 * Definindo a temperatura de operação
 .TEMP 25
 .param agingp = -0.16
 .param agingn = 0.16
-.include "32HP.mod"
+.include "finfet.mod"
 
 * Declaração das fontes
 vdd vdd 0 dc 0.9
@@ -13,14 +13,20 @@ Vagingn1 in inn1 dc 0.16
 .tran 0.001p 1000p
 
 
-MP1 out inp1 vdd vdd PMOS_32HP L=32n W=200n
-MN1 out inn1 0 0 NMOS_32HP L=32n W=100n
+*MP1 out inp1 vdd vdd PMOS_32HP L=32n W=200n
+*MN1 out inn1 0 0 NMOS_32HP L=32n W=100n
+
+
+MP1 out inp1 vdd vdd pmos_sram L=32n W=200n
+MN1 out inn1 0 0 nmos_sram L=32n W=100n
+
+
 
 vaux out aux 0
 * Positivo
 iexp 0 aux exp(0 145u 150p 2p 165p 4p)
 * Negativo
-iexp2 aux 0 exp(0 155u 300p 2p 315p 4p)
+iexp2 aux 0 exp(0 155u 550p 2p 565p 4p)
 
 .PRINT TRAN FORMAT=CSV v(out) v(in)
 .MEASURE TRAN HL TRIG v(in) VAL=0.45 RISE=1 TARG v(out) VAL=0.45 FALL=1 
