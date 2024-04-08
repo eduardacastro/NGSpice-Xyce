@@ -1,4 +1,4 @@
-# NGSpice
+# NGSpice / Xyce
 
 Scripts de circuitos feitos para simulação no NGSpice 
 
