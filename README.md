@@ -67,9 +67,9 @@ Transformar o fundo preto em branco e aumentar o tamanho da linha:
 
 Rodando o Xyce: 
 
-    - Abrir o terminal do Xyce
-    - caminhar até o path de onde estão os arquivos
-    - rodar o comando 
+- Abrir o terminal do Xyce
+- caminhar até o path de onde estão os arquivos
+- rodar o comando 
 
 ```
     Xyce nomeDoArquivo.cir
