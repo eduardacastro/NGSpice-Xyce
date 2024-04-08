@@ -10,8 +10,8 @@
 * Declarando parametros que serão utilizados nas simulações
 .param Wn = 100n
 .param Wp = 200n
-.param agingp = -0.16
-.param agingn = 0.16
+.param agingp = -0.01
+.param agingn = 0.01
 
 .SUBCKT inv_32hp in out vdd gnd
 vagingp in inp dc agingp
@@ -58,9 +58,9 @@ Xinv12 out_inv11 out_oscilador source 0 inv_32hp
 
 vaux out_inv2 aux 0
 * alto
-*iexp 0 aux exp(0 158u 0.8n 2p 0.815n 4p)
+iexp 0 aux exp(0 167u 0.79n 2p 0.805n 4p)
 *baixo
-*iexp2 aux 0 exp(0 160u 0.45n 2p 0.465n 4p)
+iexp2 aux 0 exp(0 187u 0.35n 2p 0.365n 4p)
 * Declarando o tipo d simulação 
 
 * Declarando o tipo de simulação 

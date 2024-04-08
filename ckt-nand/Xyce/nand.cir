@@ -1,0 +1,44 @@
+*  cd ../../Users/Asus/Desktop/NGSpice/ckt-inversor/Xyce
+* Definindo a temperatura de operação
+.TEMP 25
+
+.include "32HP.mod"
+
+* Declaração das fontes
+vdd vdd 0 dc 0.9
+vin1 in1 0 PULSE (0 0.9 100p 10p 10p 1000p 1000p)
+vin2 in2 0 PULSE (0 0.9 0p 10p 10p 300p 500p)
+Vagingp1 inp1 in1 dc 0.01
+Vagingn1 in1 inn1 dc 0.01
+Vagingp2 inp2 in2 dc 0.01
+Vagingn2 in2 inn2 dc 0.01
+.tran 0.001p 1000p
+
+
+*MP1 out inp1 vdd vdd PMOS_32HP L=32n W=200n
+*MN1 out inn1 0 0 NMOS_32HP L=32n W=100n
+
+
+MP1 out inp1 vdd vdd PMOS_32HP L=32n W=200n
+MP2 out inp2 vdd vdd PMOS_32HP L=32n W=200n
+MN1 out inn1 dnmos 0 NMOS_32HP L=32n W=100n
+MN2 dnmos inn2 0 0 NMOS_32HP L=32n W=100n
+
+
+
+*vaux out aux 0
+* Positivo
+*iexp 0 aux exp(0 145u 150p 2p 165p 4p)
+* Negativo
+*iexp2 aux 0 exp(0 155u 550p 2p 565p 4p)
+
+.PRINT TRAN FORMAT=CSV v(out) v(in1) v(in2)
+*Variando Inv2
+.MEASURE TRAN HL TRIG v(in2) VAL=0.45 RISE=2 TARG v(out) VAL=0.45 FALL=2 
+.MEASURE TRAN LH TRIG v(in2) VAL=0.45 FALL=2 TARG v(out) VAL=0.45 RISE=2 
+.MEASURE TRAN Fall TRIG v(out) VAL=0.72 FALL=2 TARG v(out) VAL=0.18 FALL=2
+.MEASURE TRAN RISE TRIG v(out) VAL=0.18 RISE=2 TARG v(out) VAL=0.72 RISE=2
+
+
+
+.end
