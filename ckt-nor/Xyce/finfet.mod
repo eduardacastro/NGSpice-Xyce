@@ -32,14 +32,14 @@
 ** ASAP SS models v1.0 8/3/16
 
 ** Hspice modelcard
-.model nmos_lvt nmos level = 72 
+.model nmos_lvt nmos level = 110 
 ************************************************************
 *                         general                          *
 ************************************************************
-+version = 107             bulkmod = 1               igcmod  = 1               igbmod  = 0             
++             bulkmod = 1               igcmod  = 1               igbmod  = 0             
 +gidlmod = 1               iimod   = 0               geomod  = 1               rdsmod  = 0             
 +rgatemod= 0               rgeomod = 0               shmod   = 0               nqsmod  = 0             
-+coremod = 0               cgeomod = 0               capmod  = 0               tnom    = 25            
++               cgeomod = 0                             tnom    = 25            
 +eot     = 1.25e-009       eotbox  = 1.4e-007        eotacc  = 1e-010          tfin    = 6e-009        
 +toxp    = 2.1e-009        nbody   = 1e+022          phig    = 4.307           epsrox  = 3.9           
 +epsrsub = 11.9            easub   = 4.05            ni0sub  = 1.1e+016        bg0sub  = 1.17          
@@ -100,10 +100,10 @@
 ************************************************************
 *                         general                          *
 ************************************************************
-+version = 107             bulkmod = 1               igcmod  = 1               igbmod  = 0             
++             bulkmod = 1               igcmod  = 1               igbmod  = 0             
 +gidlmod = 1               iimod   = 0               geomod  = 1               rdsmod  = 0             
 +rgatemod= 0               rgeomod = 0               shmod   = 0               nqsmod  = 0             
-+coremod = 0               cgeomod = 0               capmod  = 0               tnom    = 25            
++               cgeomod = 0                              tnom    = 25            
 +eot     = 1.25e-009       eotbox  = 1.4e-007        eotacc  = 1e-010          tfin    = 6e-009        
 +toxp    = 2.1e-009        nbody   = 1e+022          phig    = 4.372           epsrox  = 3.9           
 +epsrsub = 11.9            easub   = 4.05            ni0sub  = 1.1e+016        bg0sub  = 1.17          
@@ -164,10 +164,10 @@
 ************************************************************
 *                         general                          *
 ************************************************************
-+version = 107             bulkmod = 1               igcmod  = 1               igbmod  = 0             
++            bulkmod = 1               igcmod  = 1               igbmod  = 0             
 +gidlmod = 1               iimod   = 0               geomod  = 1               rdsmod  = 0             
 +rgatemod= 0               rgeomod = 0               shmod   = 0               nqsmod  = 0             
-+coremod = 0               cgeomod = 0               capmod  = 0               tnom    = 25            
++            cgeomod = 0                              tnom    = 25            
 +eot     = 1.25e-009       eotbox  = 1.4e-007        eotacc  = 1e-010          tfin    = 6e-009        
 +toxp    = 2.1e-009        nbody   = 1e+022          phig    = 4.2466          epsrox  = 3.9           
 +epsrsub = 11.9            easub   = 4.05            ni0sub  = 1.1e+016        bg0sub  = 1.17          
@@ -228,10 +228,10 @@
 ************************************************************
 *                         general                          *
 ************************************************************
-+version = 107             bulkmod = 1               igcmod  = 1               igbmod  = 0             
++           bulkmod = 1               igcmod  = 1               igbmod  = 0             
 +gidlmod = 1               iimod   = 0               geomod  = 1               rdsmod  = 0             
 +rgatemod= 0               rgeomod = 0               shmod   = 0               nqsmod  = 0             
-+coremod = 0               cgeomod = 0               capmod  = 0               tnom    = 25            
++              cgeomod = 0                             tnom    = 25            
 +eot     = 1.25e-009       eotbox  = 1.4e-007        eotacc  = 1e-010          tfin    = 6e-009        
 +toxp    = 2.1e-009        nbody   = 1e+022          phig    = 4.45            epsrox  = 3.9           
 +epsrsub = 11.9            easub   = 4.05            ni0sub  = 1.1e+016        bg0sub  = 1.17          
@@ -292,10 +292,10 @@
 ************************************************************
 *                         general                          *
 ************************************************************
-+version = 107             bulkmod = 1               igcmod  = 1               igbmod  = 0             
++            bulkmod = 1               igcmod  = 1               igbmod  = 0             
 +gidlmod = 1               iimod   = 0               geomod  = 1               rdsmod  = 0             
 +rgatemod= 0               rgeomod = 0               shmod   = 0               nqsmod  = 0             
-+coremod = 0               cgeomod = 0               capmod  = 0               tnom    = 25            
++               cgeomod = 0                             tnom    = 25            
 +eot     = 1.25e-009       eotbox  = 1.4e-007        eotacc  = 3e-010          tfin    = 6e-009        
 +toxp    = 2.1e-009        nbody   = 1e+022          phig    = 4.8681          epsrox  = 3.9           
 +epsrsub = 11.9            easub   = 4.05            ni0sub  = 1.1e+016        bg0sub  = 1.17          
@@ -356,10 +356,10 @@
 ************************************************************
 *                         general                          *
 ************************************************************
-+version = 107             bulkmod = 1               igcmod  = 1               igbmod  = 0             
++             bulkmod = 1               igcmod  = 1               igbmod  = 0             
 +gidlmod = 1               iimod   = 0               geomod  = 1               rdsmod  = 0             
 +rgatemod= 0               rgeomod = 0               shmod   = 0               nqsmod  = 0             
-+coremod = 0               cgeomod = 0               capmod  = 0               tnom    = 25            
++               cgeomod = 0                              tnom    = 25            
 +eot     = 1.25e-009       eotbox  = 1.4e-007        eotacc  = 3e-010          tfin    = 6e-009        
 +toxp    = 2.1e-009        nbody   = 1e+022          phig    = 4.8108          epsrox  = 3.9           
 +epsrsub = 11.9            easub   = 4.05            ni0sub  = 1.1e+016        bg0sub  = 1.17          
@@ -420,10 +420,10 @@
 ************************************************************
 *                         general                          *
 ************************************************************
-+version = 107             bulkmod = 1               igcmod  = 1               igbmod  = 0             
++             bulkmod = 1               igcmod  = 1               igbmod  = 0             
 +gidlmod = 1               iimod   = 0               geomod  = 1               rdsmod  = 0             
 +rgatemod= 0               rgeomod = 0               shmod   = 0               nqsmod  = 0             
-+coremod = 0               cgeomod = 0               capmod  = 0               tnom    = 25            
++               cgeomod = 0                              tnom    = 25            
 +eot     = 1.25e-009       eotbox  = 1.4e-007        eotacc  = 3e-010          tfin    = 6e-009        
 +toxp    = 2.1e-009        nbody   = 1e+022          phig    = 4.9278          epsrox  = 3.9           
 +epsrsub = 11.9            easub   = 4.05            ni0sub  = 1.1e+016        bg0sub  = 1.17          
@@ -484,10 +484,10 @@
 ************************************************************
 *                         general                          *
 ************************************************************
-+version = 107             bulkmod = 1               igcmod  = 1               igbmod  = 0             
++             bulkmod = 1               igcmod  = 1               igbmod  = 0             
 +gidlmod = 1               iimod   = 0               geomod  = 1               rdsmod  = 0             
 +rgatemod= 0               rgeomod = 0               shmod   = 0               nqsmod  = 0             
-+coremod = 0               cgeomod = 0               capmod  = 0               tnom    = 25            
++              cgeomod = 0                              tnom    = 25            
 +eot     = 1.25e-009       eotbox  = 1.4e-007        eotacc  = 3e-010          tfin    = 6e-009        
 +toxp    = 2.1e-009        nbody   = 1e+022          phig    = 4.78            epsrox  = 3.9           
 +epsrsub = 11.9            easub   = 4.05            ni0sub  = 1.1e+016        bg0sub  = 1.17          
