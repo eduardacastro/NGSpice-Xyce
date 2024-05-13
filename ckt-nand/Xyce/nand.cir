@@ -2,7 +2,7 @@
 * Definindo a temperatura de operação
 .TEMP 25
 
-.include "32HP.mod"
+.include "finfet.mod"
 
 * Declaração das fontes
 vdd vdd 0 dc 0.9
@@ -19,10 +19,10 @@ Vagingn2 in2 inn2 dc 0.01
 *MN1 out inn1 0 0 NMOS_32HP L=32n W=100n
 
 
-MP1 out inp1 vdd vdd PMOS_32HP L=32n W=200n
-MP2 out inp2 vdd vdd PMOS_32HP L=32n W=200n
-MN1 out inn1 dnmos 0 NMOS_32HP L=32n W=100n
-MN2 dnmos inn2 0 0 NMOS_32HP L=32n W=100n
+MP1 out inp1 vdd vdd pmos_sram L=20n W=54n NFIN=2 $X=0.071 $Y=0.135 
+MP2 out inp2 vdd vdd pmos_sram L=20n W=54n NFIN=2 $X=0.071 $Y=0.135 
+MN1 out inn1 dnmos 0 nmos_sram L=20n W=54n NFIN=2 $X=0.071 $Y=0.135 
+MN2 dnmos inn2 0 0 nmos_sram L=20n W=54n NFIN=2 $X=0.071 $Y=0.135 
 
 
 
