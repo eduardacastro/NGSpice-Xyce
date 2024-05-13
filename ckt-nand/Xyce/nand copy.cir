@@ -1,0 +1,37 @@
+*  cd ../../Users/Asus/Desktop/NGSpice/ckt-inversor/Xyce
+
+.include "finfet.mod"
+.param agingp = -0.16
+.param agingn = 0.16
+
+* Declaração das fontes
+vdd vdd 0 dc 0.7
+vin1 in1 0 PULSE (0 0.7 100p 10p 10p 1000p 1000p)
+vin2 in2 0 PULSE (0 0.7 0p 10p 10p 300p 500p)
+.tran 0.001p 1000p
+
+
+
+MP1 out in1 vdd vdd pmos_lvt L=20n NFIN=2 
+MP2 out in2 vdd vdd pmos_lvt L=20n NFIN=2
+MN1 out in1 dnmos 0 nmos_lvt L=20n NFIN=2 
+MN2 dnmos in2 0 0 nmos_lvt L=20n NFIN=2 
+
+
+
+*vaux out aux 0
+* Positivo
+*iexp 0 aux exp(0 145u 150p 2p 165p 4p)
+* Negativo
+*iexp2 aux 0 exp(0 155u 550p 2p 565p 4p)
+
+.PRINT TRAN FORMAT=CSV v(out) v(in1) v(in2)
+*Variando Inv2
+.MEASURE TRAN HL TRIG v(in2) VAL=0.45 RISE=2 TARG v(out) VAL=0.45 FALL=2 
+.MEASURE TRAN LH TRIG v(in2) VAL=0.45 FALL=2 TARG v(out) VAL=0.45 RISE=2 
+.MEASURE TRAN Fall TRIG v(out) VAL=0.72 FALL=2 TARG v(out) VAL=0.18 FALL=2
+.MEASURE TRAN RISE TRIG v(out) VAL=0.18 RISE=2 TARG v(out) VAL=0.72 RISE=2
+
+
+
+.end
