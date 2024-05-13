@@ -6,14 +6,15 @@
 * Declaração das fontes
 vdd vdd 0 dc 0.7
 vin1 in 0 PULSE (0 0.7 100p 10p 10p 100p 300p)
-Vagingp1 inp1 in dc 0.445
-Vagingn1 in inn1 dc 0.445
+Vagingp1 in inp dc -0.445
+Vagingn1 in inn dc 0.445
 .tran 0.001p 1000p
 
  
-MP1 out inp1 vdd vdd pmos_lvt L=20n NFIN=4
-MN1 out inn1 0 0 nmos_lvt L=20n NFIN=4
+MP1 out inp vdd vdd pmos_lvt L=20n NFIN=4
+MN1 out inn 0 0 nmos_lvt L=20n NFIN=4
 
+*cload out 0 0.5f
 
 .PRINT TRAN FORMAT=CSV v(out) v(in)
 .MEASURE TRAN HL TRIG v(in) VAL='supply*0.5' RISE=1 TARG v(out) VAL='supply*0.5' FALL=1 
