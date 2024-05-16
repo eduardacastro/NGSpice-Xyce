@@ -5,7 +5,7 @@
 * Declaração das fontes
 .param supply = 0.7
 vdd vdd 0 dc 0.7
-vin1 in1 0 PULSE (0 0.7 100p 10p 10p 1000p 1000p)
+vin1 in2 0 PULSE (0 0.7 100p 10p 10p 1000p 1000p)
 vin2 in2 0 PULSE (0 0.7 0p 10p 10p 300p 500p)
 .tran 0.001p 1000p
 
@@ -19,16 +19,17 @@ MN2 dnmos in2 0 0 nmos_lvt L=20n NFIN=2
 
 .OPTION OUTPUT INITIAL_INTERVAL=.1ps 350ps
 .PRINT TRAN FORMAT=CSV v(out) v(in1) v(in2)
+
 *Variando Inv1
-*.MEASURE TRAN HL TRIG v(in1) VAL='supply*0.5' RISE=2 TARG v(out) VAL='supply*0.5' FALL=2
-*.MEASURE TRAN LH TRIG v(in1) VAL='supply*0.5' FALL=1 TARG v(out) VAL='supply*0.5' RISE=1 
-*.MEASURE TRAN Fall TRIG v(out) VAL='supply*0.8' FALL=1 TARG v(out) VAL='supply*0.2' FALL=1
-*.MEASURE TRAN RISE TRIG v(out) VAL='supply*0.2' RISE=1 TARG v(out) VAL='supply*0.8' RISE=1
+.MEASURE TRAN HL1 TRIG v(in1) VAL='supply*0.5' RISE=2 TARG v(out) VAL='supply*0.5' FALL=2
+.MEASURE TRAN LH1 TRIG v(in1) VAL='supply*0.5' FALL=1 TARG v(out) VAL='supply*0.5' RISE=1 
+.MEASURE TRAN Fall1 TRIG v(out) VAL='supply*0.8' FALL=1 TARG v(out) VAL='supply*0.2' FALL=1
+.MEASURE TRAN RISE1 TRIG v(out) VAL='supply*0.2' RISE=1 TARG v(out) VAL='supply*0.8' RISE=1
 
 *Variando Inv2
-.MEASURE TRAN HL TRIG v(in2) VAL='supply*0.5' RISE=2 TARG v(out) VAL='supply*0.5' FALL=2
-.MEASURE TRAN LH TRIG v(in2) VAL='supply*0.5' FALL=1 TARG v(out) VAL='supply*0.5' RISE=1 
-.MEASURE TRAN Fall TRIG v(out) VAL='supply*0.8' FALL=1 TARG v(out) VAL='supply*0.2' FALL=1
-.MEASURE TRAN RISE TRIG v(out) VAL='supply*0.2' RISE=1 TARG v(out) VAL='supply*0.8' RISE=1
+.MEASURE TRAN HL2 TRIG v(in2) VAL='supply*0.5' RISE=2 TARG v(out) VAL='supply*0.5' FALL=2
+.MEASURE TRAN LH2 TRIG v(in2) VAL='supply*0.5' FALL=1 TARG v(out) VAL='supply*0.5' RISE=1 
+.MEASURE TRAN Fall2 TRIG v(out) VAL='supply*0.8' FALL=1 TARG v(out) VAL='supply*0.2' FALL=1
+.MEASURE TRAN RISE2 TRIG v(out) VAL='supply*0.2' RISE=1 TARG v(out) VAL='supply*0.8' RISE=1
 
 .end
