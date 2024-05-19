@@ -1,0 +1,42 @@
+*  cd ../../Users/Asus/Desktop/NGSpice/ckt-nor/Xyce/nor-2
+.include "finfet.mod"
+* Declaração das fontes
+.param supply = 0.7
+vdd vdd 0 dc 0.7
+vin2 in4 0 PULSE (0 0.7 0p 10p 10p 300p 500p)
+vin1 in3 0 PULSE (0 0.0 100p 10p 10p 1000p 1000p)
+vin3 in1 0 PULSE (0 0.0 100p 10p 10p 1000p 1000p)
+vin4 in2 0 PULSE (0 0.0 100p 10p 10p 1000p 1000p)
+.tran 0.001p 1000p
+Vagingp1 in1 inp1 dc -0.0445
+Vagingp2 in2 inp2 dc -0.0397
+Vagingp3 in3 inp3 dc -0.0354
+Vagingp4 in4 inp4 dc -0.0315
+
+Vagingn1 in1 inn1 dc 0.0445
+Vagingn2 in2 inn2 dc 0.0445
+Vagingn3 in3 inn3 dc 0.0445
+Vagingn4 in4 inn4 dc 0.0445
+
+MP1 vpmos inp1 vdd vdd pmos_lvt L=20n NFIN=2
+MP2 vp2mos inp2 vpmos vpmos pmos_lvt L=20n NFIN=2 
+MP3 vp3mos inp3 vp2mos vp2mos pmos_lvt L=20n NFIN=2
+MP4 out inp4 vp3mos vp3mos pmos_lvt L=20n NFIN=2 
+
+MN1 out inn1 0 0 nmos_lvt L=20n NFIN=2 
+MN2 out inn2 0 0 nmos_lvt L=20n NFIN=2
+MN3 out inn3 0 0 nmos_lvt L=20n NFIN=2 
+MN4 out inn4 0 0 nmos_lvt L=20n NFIN=2 
+
+
+vaux out aux 0
+* Positivo
+iexp 0 aux exp(0 55u 50p 2p 65p 4p)
+* Negativo
+iexp2 aux 0 exp(0 15u 350p 2p 365p 4p)
+
+
+
+.OPTION OUTPUT INITIAL_INTERVAL=.1ps 350ps
+.PRINT TRAN FORMAT=CSV v(out) v(in1) v(in2) v(in3) v(in4)
+.end
