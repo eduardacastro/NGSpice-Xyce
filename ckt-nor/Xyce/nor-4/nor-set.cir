@@ -1,0 +1,33 @@
+*  cd ../../Users/Asus/Desktop/NGSpice/ckt-nor/Xyce/nor-2
+.include "finfet.mod"
+* Declaração das fontes
+.param supply = 0.7
+vdd vdd 0 dc 0.7
+vin2 in1 0 PULSE (0 0.7 0p 10p 10p 300p 500p)
+vin1 in4 0 PULSE (0 0.0 100p 10p 10p 1000p 1000p)
+vin3 in2 0 PULSE (0 0.0 100p 10p 10p 1000p 1000p)
+vin4 in3 0 PULSE (0 0.0 100p 10p 10p 1000p 1000p)
+.tran 0.001p 1000p
+
+MP1 vpmos in1 vdd vdd pmos_lvt L=20n NFIN=2
+MP2 vp2mos in2 vpmos vpmos pmos_lvt L=20n NFIN=2 
+MP3 vp3mos in3 vp2mos vp2mos pmos_lvt L=20n NFIN=2
+MP4 out in4 vp3mos vp3mos pmos_lvt L=20n NFIN=2 
+
+MN1 out in1 0 0 nmos_lvt L=20n NFIN=2 
+MN2 out in2 0 0 nmos_lvt L=20n NFIN=2
+MN3 out in3 0 0 nmos_lvt L=20n NFIN=2 
+MN4 out in4 0 0 nmos_lvt L=20n NFIN=2 
+
+
+vaux out aux 0
+* Positivo
+iexp 0 aux exp(0 70u 150p 2p 165p 4p)
+* Negativo
+iexp2 aux 0 exp(0 20u 350p 2p 365p 4p)
+
+
+
+.OPTION OUTPUT INITIAL_INTERVAL=.1ps 350ps
+.PRINT TRAN FORMAT=CSV v(out) v(in1) v(in2) v(in3) v(in4)
+.end
