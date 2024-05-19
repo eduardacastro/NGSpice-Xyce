@@ -1,0 +1,35 @@
+*  cd ../../Users/Asus/Desktop/NGSpice/ckt-inversor/Xyce
+
+.include "finfet.mod"
+
+* Declaração das fontes
+.param supply = 0.7
+vdd vdd 0 dc 0.7
+vin2 in1 0 PULSE (0 0.7 0p 10p 10p 300p 500p)
+vin1 in3 0 PULSE (0 0.7 100p 10p 10p 1000p 1000p)
+vin3 in2 0 PULSE (0 0.7 100p 10p 10p 1000p 1000p)
+vin4 in4 0 PULSE (0 0.7 100p 10p 10p 1000p 1000p)
+
+.tran 0.001p 1000p
+
+
+MP1 out in1 vdd vdd pmos_lvt L=20n NFIN=2 
+MP2 out in2 vdd vdd pmos_lvt L=20n NFIN=2
+MP3 out in3 vdd vdd pmos_lvt L=20n NFIN=2
+MP4 out in4 vdd vdd pmos_lvt L=20n NFIN=2
+
+MN1 out in1 v2nmos v2nmos nmos_lvt L=20n NFIN=2
+MN2 v2nmos in2 v3nmos v3nmos nmos_lvt L=20n NFIN=2  
+MN3 v3nmos in3  v4nmos v4nmos nmos_lvt L=20n NFIN=2 
+MN4 v4nmos in4 0 0 nmos_lvt L=20n NFIN=2 
+
+vaux out aux 0
+* Positivo
+iexp 0 aux exp(0 25u 150p 2p 165p 4p)
+* Negativo
+iexp2 aux 0 exp(0 55u 350p 2p 365p 4p)
+
+
+.OPTION OUTPUT INITIAL_INTERVAL=.1ps 350ps
+.PRINT TRAN FORMAT=CSV v(out) v(in1) v(in2) v(in3) v(in4)
+.end
