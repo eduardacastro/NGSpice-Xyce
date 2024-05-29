@@ -6,35 +6,35 @@
 .param supply = 0.7
 vdd vdd 0 dc 0.7
 * Variando Inv1
-vin1 in1 0 PULSE (0 0.7 300p 10p 10p 300p 600p)
-vin2 in2 0 PULSE (0 0 0p 10p 10p 600p 1200p)
-vin3 in3 0 PULSE (0.7 0.7 0p 10p 10p 1200p 2400p)
+*vin1 in1 0 PULSE (0 0.7 300p 10p 10p 300p 600p)
+*vin2 in2 0 PULSE (0 0 0p 10p 10p 600p 1200p)
+*vin3 in3 0 PULSE (0.7 0.7 0p 10p 10p 1200p 2400p)
 
 *Variando In2 e In3 usar esses 
-*vin1 in1 0 PULSE (0.7 0.7 300p 10p 10p 1200p 600p)
+vin1 in1 0 PULSE (0.7 0.7 300p 10p 10p 1200p 600p)
 *vin2 in2 0 PULSE (0 0. 0p 10p 10p 1200p 1200p)
 *vin3 in3 0 PULSE (0 0.7 300p 10p 10p 300p 600p)
-*vin2 in2 0 PULSE (0 0.7 300p 10p 10p 300p 600p)
-*vin3 in3 0 PULSE (0. 0. 300p 10p 10p 1200p 1200p)
+vin2 in2 0 PULSE (0 0.7 300p 10p 10p 300p 600p)
+vin3 in3 0 PULSE (0. 0. 300p 10p 10p 1200p 1200p)
 
 
 Vagingp1 in1 inp1 dc -0.0445
 Vagingp2 in2 inp2 dc -0.0425
 Vagingp3 in3 inp3 dc -0.0445
-Vagingn1 in1 inn1 dc 0.0397
-Vagingn2 in2 inn2 dc 0.0397
+Vagingn1 in1 inn1 dc 0.0425
+Vagingn2 in2 inn2 dc 0.0445
 Vagingn3 in3 inn3 dc 0.0445
 
 
 .tran 0.001p 1000p
 
-MP1 out in1 vdd vdd pmos_lvt L=20n NFIN=2
-MP2 out in2 v1nmos v1nmos pmos_lvt L=20n NFIN=2  
-MP3 v1nmos in3 vdd vdd pmos_lvt L=20n NFIN=2
+MP1 out inp1 vdd vdd pmos_lvt L=20n NFIN=2
+MP2 out inp2 v1nmos v1nmos pmos_lvt L=20n NFIN=2  
+MP3 v1nmos inp3 vdd vdd pmos_lvt L=20n NFIN=2
 
-MN2 out in2 vpmos vpmos nmos_lvt L=20n NFIN=2 
-MN3 out in3 vpmos vpmos nmos_lvt L=20n NFIN=2 
-MN1 vpmos in1 0 0 nmos_lvt L=20n NFIN=2
+MN1 out inn1 vpmos vpmos nmos_lvt L=20n NFIN=2 
+MN2 vpmos inn2 0 0 nmos_lvt L=20n NFIN=2
+MN3 vpmos inn3 0 0 nmos_lvt L=20n NFIN=2
 
 
 .OPTION OUTPUT INITIAL_INTERVAL=.1ps 350ps
