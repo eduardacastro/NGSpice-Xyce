@@ -5,21 +5,21 @@
 
 * Declaração das fontes
 vdd vdd 0 dc 0.7
-vin1 in 0 PULSE (0 0.7 100p 10p 10p 300p 600p)
+vin1 in 0 PULSE (0.7 0.7 0p 10p 10p 300p 2400p)
 Vagingp1 in inp1 dc -0.0445
 Vagingn1 in inn1 dc 0.0445
 .tran 0.001p 1000p
 
  
-MP1 out in vdd vdd pmos_lvt L=20n NFIN=2
-MN1 out in 0 0 nmos_lvt L=20n NFIN=2
+MP1 out inp1 vdd vdd pmos_lvt L=20n NFIN=2
+MN1 out inn1 0 0 nmos_lvt L=20n NFIN=2
 
 
 vaux out aux 0
 * Positivo
-iexp 0 aux exp(0 65u 120p 2p 135p 4p)
+*iexp 0 aux exp(0 63u 50p 2p 65p 4p)
 * Negativo
-iexp2 aux 0 exp(0 50u 440p 2p 455p 4p)
+iexp2 aux 0 exp(0 57u 50p 2p 65p 4p)
 
 
 .OPTION OUTPUT INITIAL_INTERVAL=.01ps 0.350ps
