@@ -4,8 +4,8 @@
 * Declaração das fontes
 .param supply = 0.7
 vdd vdd 0 dc 0.7
-vin1 in1 0 PULSE (0 0.7 100p 10p 10p 1000p 1000p)
-vin2 in2 0 PULSE (0 0.7 0p 10p 10p 300p 500p)
+vin1 in2 0 PULSE (0 0 100p 10p 10p 1000p 1000p)
+vin2 in1 0 PULSE (0 0.7 0p 10p 10p 300p 500p)
 .tran 0.001p 1000p
 
 
@@ -18,9 +18,9 @@ MN2 dnmos in2 0 0 nmos_lvt L=20n NFIN=2
 
 vaux out aux 0
 * Positivo
-iexp 0 aux exp(0 40u 150p 2p 165p 4p)
+*iexp 0 aux exp(0 40u 150p 2p 165p 4p)
 * Negativo
-iexp2 aux 0 exp(0 50u 380p 2p 395p 4p)
+iexp2 aux 0 exp(0 49u 150p 2p 165p 4p)
 .OPTION OUTPUT INITIAL_INTERVAL=.1ps 350ps
 .PRINT TRAN FORMAT=CSV v(out) v(in1) v(in2)
 .end
